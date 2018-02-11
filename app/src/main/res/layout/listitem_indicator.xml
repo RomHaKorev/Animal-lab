@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="20dp" >
+
+    <ImageView
+        android:id="@+id/indicator_img"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/if_3_hospital_2774749"/>
+
+    <TextView
+        android:id="@+id/indicator_label"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:text="Gauge"
+        android:paddingRight="10dp"
+        android:textAppearance="@android:style/TextAppearance.Small" />
+
+    <ProgressBar
+        android:id="@+id/indicator_gauge"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

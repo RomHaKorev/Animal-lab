@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Animal Lab</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="money">Money</string>
+
+    <string name="physical_health">Physical Health</string>
+    <string name="mental_health">Mental Health</string>
+    <string name="stress">Stress Level</string>
+    <string name="hunger">Hunger &amp; thirst</string>
+
+    <string name="action_refused">You can not do this now</string>
+
+    <!-- time units -->
+    <string name="second_short">s</string>
+    <string name="minute_short">mn</string>
+    <string name="hour_short">h</string>
+    <string name="day_short">d</string>
+
+    <string name="feed">Feed</string>
+    <string name="meal">Meal</string>
+
+</resources>
