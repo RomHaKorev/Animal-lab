@@ -12,6 +12,9 @@ public abstract class AAction {
     /** Return the price of the action */
     public abstract double getPrice();
 
+    /** Return the number of available units */
+    public abstract int getUnits();
+
     /** Return <code>true</code> if the player has enough resource, and consume it */
     public abstract boolean consume();
 

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import app.games.dim.animallab.listeners.IBeastListener;
 import app.games.dim.animallab.model.actions.AAction;
 import app.games.dim.animallab.model.actions.Feed;
+import app.games.dim.animallab.model.actions.Nurse;
 
 /**
  * Created by Igor on 09/02/2018.
@@ -20,13 +22,16 @@ public class GameController {
     private Date mDate;
 
     private List<AAction> availableActions;
+    private List<IBeastListener> mBeastListeners;
 
     private GameController(){
         this.mWallet = new Wallet();
         this.mBeast = new Beast();
         this.mDate = new Date();
         this.availableActions = new ArrayList<>();
+        this.mBeastListeners = new ArrayList<>();
         this.availableActions.add(new Feed());
+        this.availableActions.add(new Nurse());
     }
 
     public Beast getBeast (){
@@ -45,6 +50,9 @@ public class GameController {
         boolean consumed = action.consume();
         if (consumed){
             setNextAvailability(action.getDuration());
+            for(IBeastListener listener : mBeastListeners){
+                listener.onGameChanged();
+            }
         }
         return consumed;
     }
@@ -58,6 +66,17 @@ public class GameController {
         return this.mWallet;
     }
 
+
+    public void registerBeastListener(IBeastListener listener){
+        this.mBeastListeners.add(listener);
+    }
+    public void unregister(IBeastListener listener){
+        for(IBeastListener bl : mBeastListeners){
+            if (bl.equals(listener)){
+                mBeastListeners.remove(listener);
+            }
+        }
+    }
     public static GameController getInstance(){
         return GameControllerHolder.SINGLETON;
     }

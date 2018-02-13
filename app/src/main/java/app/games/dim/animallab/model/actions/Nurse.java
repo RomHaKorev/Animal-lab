@@ -4,10 +4,10 @@ import app.games.dim.animallab.R;
 import app.games.dim.animallab.model.GameController;
 
 /**
- * Created by Igor on 10/02/2018.
+ * Created by Igor on 14/02/2018.
  */
 
-public class Feed extends AAction {
+public class Nurse extends AAction {
 
     private int nameId;
 
@@ -16,11 +16,11 @@ public class Feed extends AAction {
     private long duration;
 
 
-    public Feed(){
-        this.nameId = R.string.feed;
+    public Nurse(){
+        this.nameId = R.string.nurse;
         this.units = 20;
-        this.price = 100;
-        this.duration = 5_000;
+        this.price = 1_000;
+        this.duration = 20_000;
     }
 
     @Override
@@ -43,8 +43,8 @@ public class Feed extends AAction {
         boolean allowed = units>0;
         if (allowed){
             units--;
-            int hunger = GameController.getInstance().getBeast().getHunger();
-            GameController.getInstance().getBeast().setHunger(Math.max(0, hunger-50));
+            int physicalHealth = GameController.getInstance().getBeast().getPhysicalHealth();
+            GameController.getInstance().getBeast().setPhysicalHealth(Math.min(100, physicalHealth+25));
         }
         return allowed;
     }

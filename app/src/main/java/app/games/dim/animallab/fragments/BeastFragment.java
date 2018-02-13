@@ -5,9 +5,11 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ public class BeastFragment extends Fragment implements IBeastListener {
 
     private Typeface mFont;
     private TextView mMoneyText;
+    private ListView mIndicatorsView;
 
     public BeastFragment() {
         // Required empty public constructor
@@ -50,8 +53,8 @@ public class BeastFragment extends Fragment implements IBeastListener {
         mMoneyText.setTypeface(mFont);
         mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount()));
 
-        ListView listView = (ListView) rootView.findViewById(R.id.indicators_list);
-        listView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));
+        mIndicatorsView = (ListView) rootView.findViewById(R.id.indicators_list);
+        mIndicatorsView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));
         return rootView;
     }
 
@@ -61,12 +64,28 @@ public class BeastFragment extends Fragment implements IBeastListener {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        GameController.getInstance().registerBeastListener(this);
+        Log.v(getClass().getSimpleName(), "onResume. Registering beastListener");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        GameController.getInstance().unregister(this);
+        Log.v(getClass().getSimpleName(), "onPause. Unregistering beastListener");
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
     }
 
     @Override
     public void onGameChanged(){
+        Log.v(getClass().getSimpleName(),"onGameChanged");
         this.mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount()));
+        ((BaseAdapter) mIndicatorsView.getAdapter()).notifyDataSetChanged();
     }
 }

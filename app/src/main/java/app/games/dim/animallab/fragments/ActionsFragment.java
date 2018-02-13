@@ -1,6 +1,7 @@
 package app.games.dim.animallab.fragments;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,8 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import app.games.dim.animallab.R;
+import app.games.dim.animallab.adapters.ActionsAdapter;
 import app.games.dim.animallab.listeners.IActionClickListener;
 import app.games.dim.animallab.model.GameController;
 
@@ -22,10 +26,6 @@ import app.games.dim.animallab.model.GameController;
  */
 public class ActionsFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private IActionClickListener mListener;
 
     /**
@@ -39,28 +39,23 @@ public class ActionsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_action_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_action, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ActionsRecyclerViewAdapter(GameController.getInstance().getActions(), mListener));
-        }
-        return view;
+        Context context = rootView.getContext();
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Capture_it.ttf");
+
+        TextView title = (TextView) rootView.findViewById(R.id.title);
+        title.setTypeface(font);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.list);
+        listView.setAdapter(new ActionsAdapter(context));
+
+        return rootView;
     }
 
 
