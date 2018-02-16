@@ -6,6 +6,7 @@
 
     <!-- beast page -->
     <string name="money">Money</string>
+    <string name="specimen">Specimen</string>
 
     <string name="physical_health">Physical Health</string>
     <string name="mental_health">Mental Health</string>

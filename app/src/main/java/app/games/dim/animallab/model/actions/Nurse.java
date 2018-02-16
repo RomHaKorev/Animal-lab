@@ -18,7 +18,7 @@ public class Nurse extends AAction {
 
     public Nurse(){
         this.nameId = R.string.nurse;
-        this.units = 20;
+        this.units = 5;
         this.price = 1_000;
         this.duration = 20_000;
     }

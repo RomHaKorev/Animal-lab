@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +30,9 @@ public class BeastFragment extends Fragment implements IBeastListener {
 
     private Typeface mFont;
     private TextView mMoneyText;
+    private TextView mBeastName;
+    private TextView mBeastAge;
+    private ImageView mBeastGender;
     private ListView mIndicatorsView;
 
     public BeastFragment() {
@@ -51,7 +55,18 @@ public class BeastFragment extends Fragment implements IBeastListener {
         moneyLbl.setTypeface(mFont);
         mMoneyText = (TextView) rootView.findViewById(R.id.money_value);
         mMoneyText.setTypeface(mFont);
-        mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount()));
+        mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount())+" $");
+
+        mBeastName = (TextView) rootView.findViewById(R.id.beast_name);
+        mBeastName.setTypeface(mFont);
+        mBeastName.setText(GameController.getInstance().getBeast().getName());
+
+        mBeastAge = (TextView) rootView.findViewById(R.id.beast_age);
+        mBeastAge.setTypeface(mFont);
+        mBeastAge.setText("5 days");
+
+        mBeastGender = (ImageView) rootView.findViewById(R.id.beast_gender);
+        mBeastGender.setImageResource(R.drawable.female_gender);
 
         mIndicatorsView = (ListView) rootView.findViewById(R.id.indicators_list);
         mIndicatorsView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));

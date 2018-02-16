@@ -6,16 +6,22 @@ package app.games.dim.animallab.model;
 
 public class Beast {
 
+    private String name;
     private int physicalHealth;
     private int mentalHealth;
     private int stress;
     private int hunger;
 
     public Beast(){
+        this.name = "SpecimenXA392";
         this.mentalHealth = 70;
         this.physicalHealth = 75;
         this.stress = 10;
         this.hunger = 60;
+    }
+
+    public String getName () {
+        return this.name;
     }
 
     public int getPhysicalHealth() {
