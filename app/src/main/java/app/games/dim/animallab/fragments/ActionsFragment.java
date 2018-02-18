@@ -10,12 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import app.games.dim.animallab.R;
 import app.games.dim.animallab.adapters.ActionsAdapter;
 import app.games.dim.animallab.listeners.IActionClickListener;
+import app.games.dim.animallab.listeners.IActionsListener;
 import app.games.dim.animallab.model.GameController;
 
 /**
@@ -24,9 +26,11 @@ import app.games.dim.animallab.model.GameController;
  * Activities containing this fragment MUST implement the {@link IActionClickListener}
  * interface.
  */
-public class ActionsFragment extends Fragment {
+public class ActionsFragment extends Fragment implements IActionsListener {
 
     private IActionClickListener mListener;
+    private Context mContext;
+    private ListView mListView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -46,14 +50,14 @@ public class ActionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_action, container, false);
 
-        Context context = rootView.getContext();
+        mContext = rootView.getContext();
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Capture_it.ttf");
 
         TextView title = (TextView) rootView.findViewById(R.id.title);
         title.setTypeface(font);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.list);
-        listView.setAdapter(new ActionsAdapter(context));
+        this.mListView = (ListView) rootView.findViewById(R.id.list);
+        this.mListView.setAdapter(new ActionsAdapter(mContext));
 
         return rootView;
     }
@@ -76,4 +80,19 @@ public class ActionsFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        GameController.getInstance().registerActionsListener(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        GameController.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onActionChanged(){
+        this.mListView.setAdapter(new ActionsAdapter(mContext));
+    }
 }

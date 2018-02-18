@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import app.games.dim.animallab.listeners.IActionsListener;
 import app.games.dim.animallab.listeners.IBeastListener;
 import app.games.dim.animallab.model.actions.AAction;
 import app.games.dim.animallab.model.actions.Feed;
@@ -23,6 +24,7 @@ public class GameController {
 
     private List<AAction> availableActions;
     private List<IBeastListener> mBeastListeners;
+    private List<IActionsListener> mActionsListeners;
 
     private GameController(){
         this.mWallet = new Wallet();
@@ -30,6 +32,7 @@ public class GameController {
         this.mDate = new Date();
         this.availableActions = new ArrayList<>();
         this.mBeastListeners = new ArrayList<>();
+        this.mActionsListeners = new ArrayList<>();
         this.availableActions.add(new Feed());
         this.availableActions.add(new Nurse());
     }
@@ -53,6 +56,9 @@ public class GameController {
             for(IBeastListener listener : mBeastListeners){
                 listener.onGameChanged();
             }
+            for(IActionsListener listener : mActionsListeners){
+                listener.onActionChanged();
+            }
         }
         return consumed;
     }
@@ -74,6 +80,16 @@ public class GameController {
         for(IBeastListener bl : mBeastListeners){
             if (bl.equals(listener)){
                 mBeastListeners.remove(listener);
+            }
+        }
+    }
+    public void registerActionsListener(IActionsListener listener){
+        this.mActionsListeners.add(listener);
+    }
+    public void unregister(IActionsListener listener){
+        for(IActionsListener al : mActionsListeners) {
+            if (al.equals(listener)) {
+                mActionsListeners.remove(listener);
             }
         }
     }

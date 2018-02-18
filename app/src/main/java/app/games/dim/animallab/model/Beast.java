@@ -7,6 +7,7 @@ package app.games.dim.animallab.model;
 public class Beast {
 
     private String name;
+    private EGender gender;
     private int physicalHealth;
     private int mentalHealth;
     private int stress;
@@ -14,6 +15,7 @@ public class Beast {
 
     public Beast(){
         this.name = "SpecimenXA392";
+        this.gender = EGender.FEMALE;
         this.mentalHealth = 70;
         this.physicalHealth = 75;
         this.stress = 10;
@@ -22,6 +24,14 @@ public class Beast {
 
     public String getName () {
         return this.name;
+    }
+
+    public EGender getGender() {
+        return gender;
+    }
+
+    public void setGender(EGender gender) {
+        this.gender = gender;
     }
 
     public int getPhysicalHealth() {

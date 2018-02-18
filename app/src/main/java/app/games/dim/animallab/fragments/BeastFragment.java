@@ -2,7 +2,6 @@ package app.games.dim.animallab.fragments;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,10 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Type;
 
 import app.games.dim.animallab.adapters.IndicatorsAdapter;
 import app.games.dim.animallab.R;
@@ -55,18 +50,16 @@ public class BeastFragment extends Fragment implements IBeastListener {
         moneyLbl.setTypeface(mFont);
         mMoneyText = (TextView) rootView.findViewById(R.id.money_value);
         mMoneyText.setTypeface(mFont);
-        mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount())+" $");
 
         mBeastName = (TextView) rootView.findViewById(R.id.beast_name);
         mBeastName.setTypeface(mFont);
-        mBeastName.setText(GameController.getInstance().getBeast().getName());
 
         mBeastAge = (TextView) rootView.findViewById(R.id.beast_age);
         mBeastAge.setTypeface(mFont);
-        mBeastAge.setText("5 days");
 
         mBeastGender = (ImageView) rootView.findViewById(R.id.beast_gender);
-        mBeastGender.setImageResource(R.drawable.female_gender);
+
+        setBeastIdentification();
 
         mIndicatorsView = (ListView) rootView.findViewById(R.id.indicators_list);
         mIndicatorsView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));
@@ -100,7 +93,29 @@ public class BeastFragment extends Fragment implements IBeastListener {
     @Override
     public void onGameChanged(){
         Log.v(getClass().getSimpleName(),"onGameChanged");
-        this.mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount()));
+        setBeastIdentification();
         ((BaseAdapter) mIndicatorsView.getAdapter()).notifyDataSetChanged();
+    }
+
+    private void setBeastIdentification(){
+        // set beast name and age
+        mBeastName.setText(GameController.getInstance().getBeast().getName());
+        mBeastAge.setText("5 days");
+
+        // set wallet content
+        mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount())+" $");
+
+        // set beast gender
+        switch (GameController.getInstance().getBeast().getGender()){
+            case FEMALE:
+                mBeastGender.setImageResource(R.drawable.female_gender);
+                break;
+            case MALE:
+                mBeastGender.setImageResource(R.drawable.male_gender);
+                break;
+            case TRANS:
+                mBeastGender.setImageResource(R.drawable.trans_gender);
+                break;
+        }
     }
 }
