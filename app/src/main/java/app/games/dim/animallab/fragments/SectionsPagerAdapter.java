@@ -24,6 +24,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         else if (position==1){
             return new BeastFragment();
         }
+        else if (position==2){
+            return new MarketFragment();
+        }
         return PlaceholderFragment.newInstance(position + 1);
     }
 

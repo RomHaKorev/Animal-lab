@@ -12,10 +12,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import app.games.dim.animallab.R;
+import app.games.dim.animallab.animations.ProgressBarAnimation;
 import app.games.dim.animallab.fragments.SectionsPagerAdapter;
 import app.games.dim.animallab.listeners.IActionClickListener;
 import app.games.dim.animallab.model.GameController;
 import app.games.dim.animallab.model.actions.AAction;
+import app.games.dim.animallab.model.actions.Feed;
 
 public class GameActivity extends AppCompatActivity implements IActionClickListener{
 

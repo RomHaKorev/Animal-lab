@@ -28,13 +28,13 @@ public class IndicatorsAdapter extends BaseAdapter {
     private Typeface mFont;
     private Beast mBeast;
 
-    private ProgressBar[] items;
+    private ProgressBar[] mItems;
 
     public IndicatorsAdapter(Context context, Beast beast){
         this.mContext = context;
         this.mFont = Typeface.createFromAsset(context.getAssets(), "fonts/Capture_it.ttf");
         this.mBeast = beast;
-        this.items = new ProgressBar[NUMBER_OF_INDICATORS];
+        this.mItems = new ProgressBar[NUMBER_OF_INDICATORS];
     }
 
     @Override
@@ -44,7 +44,7 @@ public class IndicatorsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return this.mItems[i];
     }
 
     @Override
@@ -67,27 +67,27 @@ public class IndicatorsAdapter extends BaseAdapter {
             case 0:
                 img.setImageResource(R.drawable.if_3_hospital_2774749);
                 label.setText(mContext.getString(R.string.physical_health));
-                items[0] = bar;
+                mItems[0] = bar;
                 bar.setProgress(mBeast.getPhysicalHealth());
                 bar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
                 break;
             case 1:
                 img.setImageResource(R.drawable.if_brain_1626489);
                 label.setText(mContext.getString(R.string.mental_health));
-                items[1] = bar;
+                mItems[1] = bar;
                 bar.setProgress(mBeast.getMentalHealth());
                 bar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
                 break;
             case 2:
                 img.setImageResource(R.drawable.if_smiley__6_2291008);
                 label.setText(mContext.getString(R.string.stress));
-                items[2] = bar;
+                mItems[2] = bar;
                 bar.setProgress(mBeast.getStress());
                 break;
             case 3:
                 img.setImageResource(R.drawable.if_burger_653249);
                 label.setText(mContext.getString(R.string.hunger));
-                items[3] = bar;
+                mItems[3] = bar;
                 bar.setProgress(mBeast.getHunger());
                 break;
         }

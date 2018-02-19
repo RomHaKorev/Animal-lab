@@ -22,6 +22,10 @@
     <string name="meal">Meal</string>
     <string name="units"> unit(s)</string>
 
+    <!-- market page -->
+    <string name="market">Market</string>
+    <string name="operate">Operate</string>
+
     <!-- time units -->
     <string name="second_short">s</string>
     <string name="minute_short">mn</string>

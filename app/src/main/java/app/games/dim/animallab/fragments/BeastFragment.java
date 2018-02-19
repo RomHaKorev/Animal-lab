@@ -95,6 +95,7 @@ public class BeastFragment extends Fragment implements IBeastListener {
         Log.v(getClass().getSimpleName(),"onGameChanged");
         setBeastIdentification();
         ((BaseAdapter) mIndicatorsView.getAdapter()).notifyDataSetChanged();
+
     }
 
     private void setBeastIdentification(){
