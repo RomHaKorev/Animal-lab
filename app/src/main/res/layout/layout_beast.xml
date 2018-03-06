@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:background="@drawable/gradient_blue_green" >
+
+    <!-- arms -->
+
+    <!-- ears -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="-15dp"
+        android:layout_alignTop="@+id/head"
+        android:id="@+id/linearLayout">
+        <ImageView
+            android:id="@+id/left_ear"
+            android:src="@drawable/img_right_ear"
+            android:layout_marginTop="10dp"
+            android:layout_width="120dp"
+            android:layout_height="88dp" />
+
+        <ImageView
+            android:id="@+id/right_ear"
+            android:layout_width="115dp"
+            android:layout_height="88dp"
+            android:src="@drawable/img_left_ear" />
+    </LinearLayout>
+
+    <!-- feet -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="-40dp"
+        android:layout_alignBottom="@+id/body">
+        <ImageView
+            android:id="@+id/left_foot"
+            android:src="@drawable/img_right_foot"
+            android:layout_width="77dp"
+            android:layout_height="75dp" />
+        <ImageView
+            android:id="@+id/right_foot"
+            android:src="@drawable/img_left_foot"
+            android:layout_width="72dp"
+            android:layout_height="75dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/right_arm"
+        android:layout_width="112dp"
+        android:layout_height="137dp"
+        android:layout_alignTop="@+id/body"
+        android:layout_alignLeft="@id/body"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="63dp"
+        android:src="@drawable/img_left_arm" />
+
+    <ImageView
+        android:id="@+id/left_arm"
+        android:layout_width="80dp"
+        android:layout_height="133dp"
+        android:layout_alignTop="@+id/body"
+        android:layout_marginTop="13dp"
+        android:layout_alignRight="@id/body"
+        android:layout_marginRight="78dp"
+        android:src="@drawable/img_right_arm" />
+
+    <ImageView
+        android:id="@+id/body"
+        android:layout_width="125dp"
+        android:layout_height="162dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/img_body" />
+
+    <ImageView
+        android:id="@+id/head"
+        android:layout_width="116dp"
+        android:layout_height="104dp"
+        android:layout_alignTop="@+id/body"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-65dp"
+        android:src="@drawable/img_face" />
+</RelativeLayout>

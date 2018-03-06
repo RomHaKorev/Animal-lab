@@ -58,13 +58,15 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <ImageView
+        <!--ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:src="@drawable/img_monster_no_bg"
-            android:background="@drawable/gradient_background"/>
+            android:background="@drawable/gradient_background"/-->
+
+        <include layout="@layout/layout_beast" />
 
         <ListView
             android:id="@+id/indicators_list"
