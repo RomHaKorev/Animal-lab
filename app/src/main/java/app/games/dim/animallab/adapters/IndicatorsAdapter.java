@@ -1,7 +1,28 @@
+/*
+    This file is part of Animal Lab
+
+    Animal Lab, Another Android Game
+    Copyright (C) 2018 ERD IFT MHU
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package app.games.dim.animallab.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -16,12 +37,18 @@ import android.widget.TextView;
 
 import app.games.dim.animallab.R;
 import app.games.dim.animallab.model.Beast;
+import app.games.dim.animallab.animations.ProgressBarAnimation;
 
 /**
  * Created by Igor on 09/02/2018.
  */
 
 public class IndicatorsAdapter extends BaseAdapter {
+
+    private static final int HEALTH_PHY = 0;
+    private static final int HEALTH_MENTAL = 1;
+    private static final int STRESS = 2;
+    private static final int HUNGER = 3;
 
     private static final int NUMBER_OF_INDICATORS = 4;
     private Context mContext;
@@ -52,6 +79,35 @@ public class IndicatorsAdapter extends BaseAdapter {
         return i;
     }
 
+
+    private void animateProgressBar(ProgressBar bar, int newValue, boolean reversed)
+    {
+        final int ORANGE = -16791936;
+        int color;
+        if (reversed)
+        {
+            if (newValue < 60)
+                color = Color.GREEN;
+            else if (newValue < 80)
+                color = ORANGE;
+            else
+                color = Color.RED;
+        }
+        else
+        {
+            if (newValue < 20)
+                color = Color.RED;
+            else if (newValue < 40)
+                color = ORANGE;
+            else
+                color = Color.GREEN;
+        }
+        bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        int oldValue = bar.getProgress();
+        ProgressBarAnimation anim = new ProgressBarAnimation(bar, oldValue, newValue);
+        anim.setDuration(3000);
+        bar.startAnimation(anim);
+    }
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view==null){
@@ -63,32 +119,35 @@ public class IndicatorsAdapter extends BaseAdapter {
         TextView label = (TextView) view.findViewById(R.id.indicator_label);
         label.setTypeface(mFont);
         ProgressBar bar = (ProgressBar) view.findViewById(R.id.indicator_gauge);
+        int newValue = -1;
         switch (position) {
-            case 0:
+            case HEALTH_PHY:
                 img.setImageResource(R.drawable.if_3_hospital_2774749);
                 label.setText(mContext.getString(R.string.physical_health));
-                mItems[0] = bar;
-                bar.setProgress(mBeast.getPhysicalHealth());
-                bar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+                mItems[position] = bar;
+                newValue = mBeast.getPhysicalHealth();
+                animateProgressBar(bar, newValue,false);
                 break;
-            case 1:
+            case HEALTH_MENTAL:
                 img.setImageResource(R.drawable.if_brain_1626489);
                 label.setText(mContext.getString(R.string.mental_health));
-                mItems[1] = bar;
-                bar.setProgress(mBeast.getMentalHealth());
-                bar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+                mItems[position] = bar;
+                newValue = mBeast.getMentalHealth();
+                animateProgressBar(bar, newValue, false);
                 break;
-            case 2:
+            case STRESS:
                 img.setImageResource(R.drawable.if_smiley__6_2291008);
                 label.setText(mContext.getString(R.string.stress));
-                mItems[2] = bar;
-                bar.setProgress(mBeast.getStress());
+                mItems[position] = bar;
+                newValue = mBeast.getStress();
+                animateProgressBar(bar, newValue, true);
                 break;
-            case 3:
+            case HUNGER:
                 img.setImageResource(R.drawable.if_burger_653249);
                 label.setText(mContext.getString(R.string.hunger));
-                mItems[3] = bar;
-                bar.setProgress(mBeast.getHunger());
+                mItems[position] = bar;
+                newValue = mBeast.getHunger();
+                animateProgressBar(bar, newValue, true);
                 break;
         }
         return view;
@@ -118,7 +177,7 @@ public class IndicatorsAdapter extends BaseAdapter {
                         break;
                 }
                 if (oldValue != 0 && oldValue != newValue) {
-                    Log.v(getClass().getSimpleName(), "Change value from " + oldValue + " to " + newValue);
+                    Log.v(getClass().getSimpleName(), "Change value from " + oldValue + " to " + newValue + " for " + bar);
                 }
             }
         }
