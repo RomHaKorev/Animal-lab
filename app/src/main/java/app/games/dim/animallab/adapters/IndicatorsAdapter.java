@@ -39,6 +39,8 @@ import app.games.dim.animallab.R;
 import app.games.dim.animallab.model.Beast;
 import app.games.dim.animallab.animations.ProgressBarAnimation;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by Igor on 09/02/2018.
  */
@@ -105,7 +107,7 @@ public class IndicatorsAdapter extends BaseAdapter {
         bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         int oldValue = bar.getProgress();
         ProgressBarAnimation anim = new ProgressBarAnimation(bar, oldValue, newValue);
-        anim.setDuration(3000);
+        anim.setDuration((3000 * abs(newValue - oldValue))/100);
         bar.startAnimation(anim);
     }
     @Override

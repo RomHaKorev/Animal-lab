@@ -96,6 +96,7 @@ public class GameController {
     public void registerBeastListener(IBeastListener listener){
         this.mBeastListeners.add(listener);
     }
+
     public void unregister(IBeastListener listener){
         for(IBeastListener bl : mBeastListeners){
             if (bl.equals(listener)){
@@ -103,9 +104,11 @@ public class GameController {
             }
         }
     }
+
     public void registerActionsListener(IActionsListener listener){
         this.mActionsListeners.add(listener);
     }
+
     public void unregister(IActionsListener listener){
         for(IActionsListener al : mActionsListeners) {
             if (al.equals(listener)) {
@@ -113,6 +116,7 @@ public class GameController {
             }
         }
     }
+
     public static GameController getInstance(){
         return GameControllerHolder.SINGLETON;
     }

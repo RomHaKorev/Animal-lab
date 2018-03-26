@@ -32,10 +32,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import app.games.dim.animallab.activities.GameActivity;
 import app.games.dim.animallab.adapters.IndicatorsAdapter;
 import app.games.dim.animallab.R;
 import app.games.dim.animallab.listeners.IBeastListener;
+import app.games.dim.animallab.listeners.OnSwipeTouchListener;
+import app.games.dim.animallab.model.Beast;
 import app.games.dim.animallab.model.GameController;
 
 /**
@@ -83,6 +87,28 @@ public class BeastFragment extends Fragment implements IBeastListener {
 
         mIndicatorsView = (ListView) rootView.findViewById(R.id.indicators_list);
         mIndicatorsView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));
+
+        ImageView body_image = (ImageView) rootView.findViewById(R.id.body);
+        body_image.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+            public void onSwipeBottom() {
+                //String s = "Reduce stress " + this.accepted();
+                if (this.accepted())
+                {
+                    Beast beast = GameController.getInstance().getBeast();
+                    int stress = beast.getStress();
+                    if (stress - 1 > 0) {
+                        beast.setStress(stress - 1);
+                    }
+                    else {
+                        beast.setStress(0);
+                    }
+                    //s = "Reduce Stress " + beast.getStress();
+                    onGameChanged();
+                }
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return rootView;
     }
 

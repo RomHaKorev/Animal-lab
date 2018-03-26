@@ -38,7 +38,7 @@ public class Beast {
         this.gender = EGender.FEMALE;
         this.mentalHealth = 70;
         this.physicalHealth = 75;
-        this.stress = 5;
+        this.stress = 50;
         this.hunger = 60;
     }
 
