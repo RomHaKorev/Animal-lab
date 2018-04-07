@@ -25,6 +25,14 @@
     <!-- market page -->
     <string name="market">Market</string>
     <string name="operate">Operate</string>
+    <string name="inoculate_sodium">Inoculate Sodium</string>
+    <string name="inoculate_keratin">Inoculate Keratin</string>
+    <string name="drink_energy_drink">Drink Energy Drink</string>
+    <string name="drink_poison">Drink Poison</string>
+    <string name="inject_crab_dna">Inject Crab DNA</string>
+    <string name="modify_allele">Modify Allele</string>
+    <string name="modify_chromosome">Modify Chromosome</string>
+    <string name="modify_genome">Modify Genome</string>
 
     <!-- time units -->
     <string name="second_short">s</string>

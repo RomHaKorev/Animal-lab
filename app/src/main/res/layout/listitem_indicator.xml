@@ -17,14 +17,15 @@
         android:id="@+id/indicator_label"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:text="Gauge"
+        android:text="Gauge n Level"
         android:paddingRight="10dp"
         android:textAppearance="@android:style/TextAppearance.Small" />
 
     <ProgressBar
         android:id="@+id/indicator_gauge"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:paddingTop="5dp"
+        style="@style/Horizontal_ProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+    <!--style="?android:attr/progressBarStyleHorizontal"-->
 </LinearLayout>

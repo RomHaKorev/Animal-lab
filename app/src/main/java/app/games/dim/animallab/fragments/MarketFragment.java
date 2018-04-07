@@ -20,16 +20,23 @@
 
 package app.games.dim.animallab.fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import app.games.dim.animallab.R;
+import app.games.dim.animallab.adapters.AMarketAdapter;
+import app.games.dim.animallab.adapters.MerchandableActionsAdapter;
+import app.games.dim.animallab.model.actions.ASalableAction;
 
 /**
  * Created by Igor on 19/02/2018.
@@ -39,6 +46,14 @@ public class MarketFragment extends Fragment {
 
     private Typeface mFont;
     private ListView mListView;
+
+    private Button mInjectionButton;
+    private Button mPotionButton;
+    private Button mGeneticButton;
+    private Button mPsychoButton;
+    private Button mWhipButton;
+
+    private MarketNestedFragment mActionsFragment;
 
     public MarketFragment(){
         // Required empty public constructor
@@ -59,9 +74,39 @@ public class MarketFragment extends Fragment {
         TextView title = (TextView) rootView.findViewById(R.id.title);
         title.setTypeface(mFont);
 
-        this.mListView = (ListView) rootView.findViewById(R.id.list);
+        initializeButtons(rootView);
 
         return rootView;
+    }
+
+    private void initializeButtons(final View rootView){
+        this.mInjectionButton = (Button) rootView.findViewById(R.id.injection_button);
+        mapAction(this.mInjectionButton, rootView.getContext(), ASalableAction.EType.SYRINGE);
+
+        this.mPotionButton = (Button) rootView.findViewById(R.id.potion_button);
+        mapAction(this.mPotionButton, rootView.getContext(), ASalableAction.EType.POTION);
+
+        this.mGeneticButton = (Button) rootView.findViewById(R.id.genetic_button);
+        mapAction(this.mGeneticButton, rootView.getContext(), ASalableAction.EType.DNA);
+
+        this.mPsychoButton = (Button) rootView.findViewById(R.id.psycho_button);
+        this.mWhipButton = (Button) rootView.findViewById(R.id.whip_button);
+    }
+
+    private void mapAction(Button button, final Context context, final ASalableAction.EType type){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AMarketAdapter adapter = new MerchandableActionsAdapter(context, type);
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                if (mActionsFragment!=null) {
+                    transaction.remove(mActionsFragment);
+                }
+                mActionsFragment = new MarketNestedFragment();
+                mActionsFragment.setAdapter(adapter);
+                transaction.add(R.id.list_container, mActionsFragment).commit();
+            }
+        });
     }
 
 }

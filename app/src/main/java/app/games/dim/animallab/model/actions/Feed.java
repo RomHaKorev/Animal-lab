@@ -27,7 +27,7 @@ import app.games.dim.animallab.model.GameController;
  * Created by Igor on 10/02/2018.
  */
 
-public class Feed extends AAction {
+public class Feed extends ACostingAction {
 
     private int nameId;
 

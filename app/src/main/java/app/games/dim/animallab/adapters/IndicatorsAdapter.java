@@ -84,32 +84,12 @@ public class IndicatorsAdapter extends BaseAdapter {
 
     private void animateProgressBar(ProgressBar bar, int newValue, boolean reversed)
     {
-        final int ORANGE = -16791936;
-        int color;
-        if (reversed)
-        {
-            if (newValue < 60)
-                color = Color.GREEN;
-            else if (newValue < 80)
-                color = ORANGE;
-            else
-                color = Color.RED;
-        }
-        else
-        {
-            if (newValue < 20)
-                color = Color.RED;
-            else if (newValue < 40)
-                color = ORANGE;
-            else
-                color = Color.GREEN;
-        }
-        bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         int oldValue = bar.getProgress();
         ProgressBarAnimation anim = new ProgressBarAnimation(bar, oldValue, newValue);
         anim.setDuration((3000 * abs(newValue - oldValue))/100);
         bar.startAnimation(anim);
     }
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view==null){
@@ -149,6 +129,7 @@ public class IndicatorsAdapter extends BaseAdapter {
                 label.setText(mContext.getString(R.string.hunger));
                 mItems[position] = bar;
                 newValue = mBeast.getHunger();
+                bar = new ProgressBar(mContext, null, R.drawable.reverse_horizontal_progressbar);
                 animateProgressBar(bar, newValue, true);
                 break;
         }
@@ -165,16 +146,16 @@ public class IndicatorsAdapter extends BaseAdapter {
                 int oldValue = ((ProgressBar) getItem(i)).getProgress();
                 int newValue = 0;
                 switch (i) {
-                    case 0:
+                    case HEALTH_PHY:
                         newValue = mBeast.getPhysicalHealth();
                         break;
-                    case 1:
+                    case HEALTH_MENTAL:
                         newValue = mBeast.getMentalHealth();
                         break;
-                    case 2:
+                    case STRESS:
                         newValue = mBeast.getStress();
                         break;
-                    case 3:
+                    case HUNGER:
                         newValue = mBeast.getHunger();
                         break;
                 }

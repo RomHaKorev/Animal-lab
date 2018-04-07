@@ -27,7 +27,7 @@ import app.games.dim.animallab.model.GameController;
  * Created by Igor on 14/02/2018.
  */
 
-public class Nurse extends AAction {
+public class Nurse extends ACostingAction {
 
     private int nameId;
 

@@ -29,28 +29,41 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.List;
+
 import app.games.dim.animallab.R;
 import app.games.dim.animallab.listeners.IActionClickListener;
 import app.games.dim.animallab.model.GameController;
 import app.games.dim.animallab.model.actions.AAction;
+import app.games.dim.animallab.model.actions.ASalableAction;
 
 /**
- * Created by Igor on 09/02/2018.
+ * Created by Igor on 07/04/2018.
  */
 
-public class ActionsAdapter extends BaseAdapter {
+public class MerchandableActionsAdapter extends AMarketAdapter {
 
-    private Context mContext;
-    private Typeface mFont;
+    private static final int HEADER_INDEX = 0;
 
-    public ActionsAdapter(Context context){
-        this.mContext = context;
-        this.mFont = Typeface.createFromAsset(context.getAssets(), "fonts/Capture_it.ttf");
+    private ASalableAction.EType mType;
+    private final DecimalFormat mFormat;
+
+    public MerchandableActionsAdapter(Context context, ASalableAction.EType type){
+        super(context);
+        this.mType = type;
+
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setGroupingSeparator(' ');
+        this.mFormat = new DecimalFormat("###,### $");
+
     }
 
     @Override
     public int getCount() {
-        return GameController.getInstance().getActionsToPay().size();
+        // 1 is added to put header
+        return GameController.getInstance().getNumberOfChallengingActions(mType)+1;
     }
 
     @Override
@@ -65,27 +78,34 @@ public class ActionsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+        // Retrieve TextView from the XML layout
         if (view==null){
             LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.listitem_action, null);
+            view = inflater.inflate(R.layout.listitem_market, null);
         }
         TextView actionName = (TextView) view.findViewById(R.id.action_label);
-        TextView actionUnits = (TextView) view.findViewById(R.id.action_units);
+        TextView actionRisk = (TextView) view.findViewById(R.id.risk_label);
+        TextView actionEarn = (TextView) view.findViewById(R.id.earns_label);
 
-
-        final AAction action = GameController.getInstance().getActionsToPay().get(position);
+        // Apply font on TextView
         actionName.setTypeface(mFont);
-        actionName.setText(action.getNameId());
-        actionName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((IActionClickListener)view.getContext()).onActionSelected(action);
-            }
-        });
+        actionRisk.setTypeface(mFont);
+        actionEarn.setTypeface(mFont);
 
-        actionUnits.setTypeface(mFont);
-        actionUnits.setText(Integer.toString(action.getUnits())+" "+mContext.getString(R.string.units));
+        // Fill TextView with their data
+        if (position == HEADER_INDEX){
+            actionName.setText("");
+            actionRisk.setText("Risk");
+            actionEarn.setText("Gain");
+        }
+        else {
+            List<ASalableAction> actions = GameController.getInstance().getChallengingActions(mType);
+            ASalableAction action = actions.get(position-1);
+            actionName.setText(mContext.getString(action.getNameId()));
+            actionEarn.setText(this.mFormat.format(action.getEarnableMoney()));
+            actionRisk.setText(action.getRisk()+"%");
+        }
 
         return view;
     }

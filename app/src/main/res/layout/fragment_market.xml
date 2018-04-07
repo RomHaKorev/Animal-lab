@@ -15,11 +15,62 @@
         android:textColor="#ff9a4025"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:id="@+id/marketable_actions"
+            android:orientation="horizontal"
+            android:paddingHorizontal="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <Button
+                android:id="@+id/injection_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/img_market_syringe"/>
+            <Button
+                android:id="@+id/potion_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/img_market_potion"/>
+            <Button
+                android:id="@+id/genetic_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/img_market_dna"/>
+            <Button
+                android:id="@+id/psycho_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/img_market_psycho"/>
+            <Button
+                android:id="@+id/whip_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/img_market_whip"/>
+        </LinearLayout>
+    </HorizontalScrollView>
     <ListView
         android:id="@+id/list"
         android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        tools:listitem="@layout/fragment_action"/>
+    <LinearLayout
+        android:id="@+id/list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/fragment_action"/>
+        android:orientation="vertical"
+        />
 
 </LinearLayout>

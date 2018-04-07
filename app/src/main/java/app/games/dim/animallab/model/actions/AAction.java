@@ -28,9 +28,6 @@ public abstract class AAction {
     /** Return the id of the string resource corresponding to the action name */
     public abstract int getNameId();
 
-    /** Return the price of the action */
-    public abstract double getPrice();
-
     /** Return the number of available units */
     public abstract int getUnits();
 

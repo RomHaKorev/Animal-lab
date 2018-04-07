@@ -30,6 +30,10 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+    private static final int ACTIONS_FRAGMENT_ID = 0;
+    private static final int BEAST_FRAGMENT_ID = 1;
+    private static final int MARKET_FRAGMENT_ID = 2;
+
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -37,17 +41,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        if (position==0){
+        // Return a specific Fragment (defined as a public class in package fragments).
+        if (position==ACTIONS_FRAGMENT_ID){
             return new ActionsFragment();
         }
-        else if (position==1){
+        else if (position==BEAST_FRAGMENT_ID){
             return new BeastFragment();
         }
-        else if (position==2){
+        else if (position==MARKET_FRAGMENT_ID){
             return new MarketFragment();
         }
-        return PlaceholderFragment.newInstance(position + 1);
+        return null;
     }
 
     @Override

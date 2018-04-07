@@ -20,6 +20,10 @@
 
 package app.games.dim.animallab.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,7 +32,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.Animation;
 import android.widget.BaseAdapter;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +60,10 @@ public class BeastFragment extends Fragment implements IBeastListener {
     private TextView mBeastAge;
     private ImageView mBeastGender;
     private ListView mIndicatorsView;
+
+    private ImageView mRightEyelidView;
+    private ImageView mLeftEyelidView;
+    private ImageView mRightArmView;
 
     public BeastFragment() {
         // Required empty public constructor
@@ -105,9 +116,12 @@ public class BeastFragment extends Fragment implements IBeastListener {
                     //s = "Reduce Stress " + beast.getStress();
                     onGameChanged();
                 }
-                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
             }
         });
+
+        mRightArmView = (ImageView) rootView.findViewById(R.id.right_arm);
+        mRightEyelidView = (ImageView) rootView.findViewById(R.id.right_eye);
+        mLeftEyelidView = (ImageView) rootView.findViewById(R.id.left_eye);
 
         return rootView;
     }
@@ -122,6 +136,7 @@ public class BeastFragment extends Fragment implements IBeastListener {
         super.onResume();
         GameController.getInstance().registerBeastListener(this);
         Log.v(getClass().getSimpleName(), "onResume. Registering beastListener");
+        animateEyes();
     }
 
     @Override
@@ -141,6 +156,61 @@ public class BeastFragment extends Fragment implements IBeastListener {
         Log.v(getClass().getSimpleName(),"onGameChanged");
         setBeastIdentification();
         ((BaseAdapter) mIndicatorsView.getAdapter()).notifyDataSetChanged();
+        onMutation();
+
+    }
+
+    private void animateEyes(){
+        AnimatorSet animator = new AnimatorSet();
+        // right eye
+        ObjectAnimator rightEyeChange = ObjectAnimator.ofFloat(mRightEyelidView, "scaleY",0f);
+        //rightEyeChange.setRepeatCount(Animation.INFINITE);
+        rightEyeChange.setDuration(400);
+
+        ObjectAnimator rightEyeMoveUp = ObjectAnimator.ofFloat(mRightEyelidView, "translationY",-30);
+        rightEyeMoveUp.setDuration(400);
+        ObjectAnimator rightEyeMoveDown = ObjectAnimator.ofFloat(mRightEyelidView, "translationY",30);
+        rightEyeMoveDown.setDuration(400);
+
+        // left eye
+        animator
+                //.play(rightEyeChange).before(ObjectAnimator.ofFloat(mRightEyelidView, "scaleY",1f))
+                .play(rightEyeMoveDown).after(3000).after(rightEyeMoveUp);
+//                .with(ObjectAnimator.ofFloat(mLeftEyelidView, "scaleY",0f))
+//                .with(ObjectAnimator.ofFloat(mLeftEyelidView, "translationY",-30));
+
+        animator.start();
+
+    }
+
+    private void onMutation(){
+//        mRightArmView.animate()
+//                .alpha(1f)
+//                .setDuration(800)
+//                .setListener(null);
+//        mRightArmView.setImageResource(R.drawable.img_left_arm);
+//        mRightArmView.animate()
+//                .alpha(0f)
+//                .setDuration(800)
+//                .setListener(null);
+
+        AnimatorSet animator = new AnimatorSet();
+        ObjectAnimator changeAnimator = ObjectAnimator.ofFloat(mRightArmView, "alpha",1);
+        changeAnimator.addListener(
+                new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        mRightArmView.setImageResource(R.drawable.img_left_ear);
+                    }
+                }
+        );
+        animator
+          //      .play(ObjectAnimator.ofFloat(mRightArmView, "alpha",1))
+                .play(changeAnimator)
+                .after(ObjectAnimator.ofFloat(mRightArmView, "alpha",0));
+        animator.setDuration(1500);
+        animator.start();
 
     }
 
