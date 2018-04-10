@@ -32,12 +32,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import app.games.dim.animallab.R;
-import app.games.dim.animallab.animations.ProgressBarAnimation;
-import app.games.dim.animallab.fragments.SectionsPagerAdapter;
+import app.games.dim.animallab.adapters.SectionsPagerAdapter;
 import app.games.dim.animallab.listeners.IActionClickListener;
 import app.games.dim.animallab.model.GameController;
 import app.games.dim.animallab.model.actions.AAction;
-import app.games.dim.animallab.model.actions.Feed;
+import app.games.dim.animallab.model.actions.ACostingAction;
 
 public class GameActivity extends AppCompatActivity implements IActionClickListener{
 
@@ -90,13 +89,14 @@ public class GameActivity extends AppCompatActivity implements IActionClickListe
     public void onActionSelected(AAction action) {
         Log.v(getClass().getSimpleName(), "action selected "+action.getClass().getSimpleName());
         mViewPager.setCurrentItem(1, true);
-        if (GameController.getInstance().execute(action)) {
-            String msg = getString(action.getNameId()) + " the animal";
-            Snackbar.make(this.mViewPager, msg, Snackbar.LENGTH_SHORT).show();
-        }
-        else {
-            String msg = getString(R.string.action_refused);
-            Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+        if (action instanceof ACostingAction) {
+            if (GameController.getInstance().execute(action)) {
+                String msg = getString(action.getNameId()) + " the animal";
+                Snackbar.make(this.mViewPager, msg, Snackbar.LENGTH_SHORT).show();
+            } else {
+                String msg = getString(R.string.action_refused);
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ public abstract class ASalableAction extends AAction {
 
     public enum EType {
         SYRINGE,
+        SURGERY,
         POTION,
         DNA,
         PSYCHO,

@@ -27,27 +27,27 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
-import android.view.animation.Animation;
 import android.widget.BaseAdapter;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import app.games.dim.animallab.activities.GameActivity;
 import app.games.dim.animallab.adapters.IndicatorsAdapter;
 import app.games.dim.animallab.R;
+import app.games.dim.animallab.formatters.MoneyFormatter;
 import app.games.dim.animallab.listeners.IBeastListener;
 import app.games.dim.animallab.listeners.OnSwipeTouchListener;
 import app.games.dim.animallab.model.Beast;
 import app.games.dim.animallab.model.GameController;
+import app.games.dim.animallab.model.Mutation;
+import app.games.dim.animallab.model.actions.Inoculation;
+import app.games.dim.animallab.model.actions.SurgeryOperation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +64,10 @@ public class BeastFragment extends Fragment implements IBeastListener {
     private ImageView mRightEyelidView;
     private ImageView mLeftEyelidView;
     private ImageView mRightArmView;
+    private ImageView mLeftArmView;
+
+    private Handler mHandler;
+    private Runnable mRunnable;
 
     public BeastFragment() {
         // Required empty public constructor
@@ -73,6 +77,15 @@ public class BeastFragment extends Fragment implements IBeastListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Capture_it.ttf");
+        this.mHandler = new Handler();
+        this.mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d(BeastFragment.class.getSimpleName(), "animate...");
+                animateEyes();
+                mHandler.postDelayed(this, Beast.EYELID_WINK_DURATION);
+            }
+        };
     }
 
     @Override
@@ -99,29 +112,21 @@ public class BeastFragment extends Fragment implements IBeastListener {
         mIndicatorsView = (ListView) rootView.findViewById(R.id.indicators_list);
         mIndicatorsView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));
 
-        ImageView body_image = (ImageView) rootView.findViewById(R.id.body);
-        body_image.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+        ImageView bodyView = (ImageView) rootView.findViewById(R.id.body);
+        bodyView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
             public void onSwipeBottom() {
-                //String s = "Reduce stress " + this.accepted();
                 if (this.accepted())
                 {
-                    Beast beast = GameController.getInstance().getBeast();
-                    int stress = beast.getStress();
-                    if (stress - 1 > 0) {
-                        beast.setStress(stress - 1);
-                    }
-                    else {
-                        beast.setStress(0);
-                    }
-                    //s = "Reduce Stress " + beast.getStress();
-                    onGameChanged();
+                    Log.d(BeastFragment.class.getSimpleName(), "swipe");
+                    GameController.getInstance().reduceBeastStress(5);
                 }
             }
         });
 
         mRightArmView = (ImageView) rootView.findViewById(R.id.right_arm);
-        mRightEyelidView = (ImageView) rootView.findViewById(R.id.right_eye);
-        mLeftEyelidView = (ImageView) rootView.findViewById(R.id.left_eye);
+        mLeftArmView = (ImageView) rootView.findViewById(R.id.left_arm);
+        mRightEyelidView = (ImageView) rootView.findViewById(R.id.right_eyelid);
+        mLeftEyelidView = (ImageView) rootView.findViewById(R.id.left_eyelid);
 
         return rootView;
     }
@@ -136,13 +141,14 @@ public class BeastFragment extends Fragment implements IBeastListener {
         super.onResume();
         GameController.getInstance().registerBeastListener(this);
         Log.v(getClass().getSimpleName(), "onResume. Registering beastListener");
-        animateEyes();
+        mHandler.postDelayed(mRunnable,100);
     }
 
     @Override
     public void onPause(){
         super.onPause();
         GameController.getInstance().unregister(this);
+        mHandler.removeCallbacks(mRunnable);
         Log.v(getClass().getSimpleName(), "onPause. Unregistering beastListener");
     }
 
@@ -152,63 +158,74 @@ public class BeastFragment extends Fragment implements IBeastListener {
     }
 
     @Override
-    public void onGameChanged(){
-        Log.v(getClass().getSimpleName(),"onGameChanged");
+    public void onBeastChanged(Mutation mutationEvent){
+        Log.v(getClass().getSimpleName(),"onBeastChanged");
         setBeastIdentification();
         ((BaseAdapter) mIndicatorsView.getAdapter()).notifyDataSetChanged();
-        onMutation();
-
+        if (mutationEvent.bodyPart != Mutation.EBodyPart.NONE) {
+            onMutation(mutationEvent);
+        }
     }
 
     private void animateEyes(){
-        AnimatorSet animator = new AnimatorSet();
-        // right eye
-        ObjectAnimator rightEyeChange = ObjectAnimator.ofFloat(mRightEyelidView, "scaleY",0f);
-        //rightEyeChange.setRepeatCount(Animation.INFINITE);
-        rightEyeChange.setDuration(400);
+        this.mRightEyelidView.setPivotY(0.0f);
+        this.mLeftEyelidView.setPivotY(0.0f);
+        AnimatorSet leftAnimator = createAnimator(mLeftEyelidView);
+        AnimatorSet rightAnimator = createAnimator(mRightEyelidView);
 
-        ObjectAnimator rightEyeMoveUp = ObjectAnimator.ofFloat(mRightEyelidView, "translationY",-30);
-        rightEyeMoveUp.setDuration(400);
-        ObjectAnimator rightEyeMoveDown = ObjectAnimator.ofFloat(mRightEyelidView, "translationY",30);
-        rightEyeMoveDown.setDuration(400);
-
-        // left eye
-        animator
-                //.play(rightEyeChange).before(ObjectAnimator.ofFloat(mRightEyelidView, "scaleY",1f))
-                .play(rightEyeMoveDown).after(3000).after(rightEyeMoveUp);
-//                .with(ObjectAnimator.ofFloat(mLeftEyelidView, "scaleY",0f))
-//                .with(ObjectAnimator.ofFloat(mLeftEyelidView, "translationY",-30));
-
-        animator.start();
+        leftAnimator.start();
+        rightAnimator.start();
 
     }
-
-    private void onMutation(){
-//        mRightArmView.animate()
-//                .alpha(1f)
-//                .setDuration(800)
-//                .setListener(null);
-//        mRightArmView.setImageResource(R.drawable.img_left_arm);
-//        mRightArmView.animate()
-//                .alpha(0f)
-//                .setDuration(800)
-//                .setListener(null);
-
+    private AnimatorSet createAnimator(ImageView imageView){
         AnimatorSet animator = new AnimatorSet();
-        ObjectAnimator changeAnimator = ObjectAnimator.ofFloat(mRightArmView, "alpha",1);
-        changeAnimator.addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        mRightArmView.setImageResource(R.drawable.img_left_ear);
+
+        ObjectAnimator eyelidMoveUp = ObjectAnimator.ofFloat(imageView, "scaleY",0.0f);
+        eyelidMoveUp.setDuration(60);
+        ObjectAnimator eyelidMoveDown = ObjectAnimator.ofFloat(imageView, "scaleY",1.0f);
+        eyelidMoveDown.setDuration(60);
+
+        animator.play(eyelidMoveDown).before(eyelidMoveUp);
+        animator.setDuration(140);
+
+        return animator;
+    }
+
+    private void onMutation(final Mutation mutation){
+        AnimatorSet animator = new AnimatorSet();
+        if (mutation.bodyPart == Mutation.EBodyPart.RIGHT_ARM) {
+            ObjectAnimator changeAnimator = ObjectAnimator.ofFloat(mRightArmView, "alpha", 1);
+
+            changeAnimator.addListener(
+                    new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            mRightArmView.setImageResource(R.drawable.img_left_crab);
+                        }
                     }
-                }
-        );
-        animator
-          //      .play(ObjectAnimator.ofFloat(mRightArmView, "alpha",1))
-                .play(changeAnimator)
-                .after(ObjectAnimator.ofFloat(mRightArmView, "alpha",0));
+            );
+            animator
+                    //      .play(ObjectAnimator.ofFloat(mRightArmView, "alpha",1))
+                    .play(changeAnimator)
+                    .after(ObjectAnimator.ofFloat(mRightArmView, "alpha", 0));
+        }
+        else if (mutation.bodyPart == Mutation.EBodyPart.LEFT_ARM){
+            ObjectAnimator changeAnimator = ObjectAnimator.ofFloat(mLeftArmView, "alpha", 1);
+            changeAnimator.addListener(
+                    new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            mLeftArmView.setImageResource(R.drawable.img_right_raw_flesh_right);
+                        }
+                    }
+            );
+            animator
+                    .play(changeAnimator)
+                    .after(ObjectAnimator.ofFloat(mLeftArmView, "alpha", 0));
+
+        }
         animator.setDuration(1500);
         animator.start();
 
@@ -220,7 +237,8 @@ public class BeastFragment extends Fragment implements IBeastListener {
         mBeastAge.setText("5 days");
 
         // set wallet content
-        mMoneyText.setText(Double.toString(GameController.getInstance().getWallet().getAccount())+" $");
+        Double moneyValue = GameController.getInstance().getWallet().getAccount();
+        mMoneyText.setText(MoneyFormatter.FORMATTER.format(moneyValue));
 
         // set beast gender
         switch (GameController.getInstance().getBeast().getGender()){

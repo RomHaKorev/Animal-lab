@@ -35,6 +35,7 @@ import app.games.dim.animallab.model.actions.Drink;
 import app.games.dim.animallab.model.actions.Feed;
 import app.games.dim.animallab.model.actions.Inoculation;
 import app.games.dim.animallab.model.actions.Nurse;
+import app.games.dim.animallab.model.actions.SurgeryOperation;
 
 /**
  * Created by Igor on 09/02/2018.
@@ -72,6 +73,9 @@ public class GameController {
         this.challenges.add(new Inoculation(R.string.inoculate_sodium, 31));
         this.challenges.add(new Inoculation(R.string.inoculate_keratin, 45));
 
+        // Surgery
+        this.challenges.add(new SurgeryOperation(R.string.transplant_crab_claw, 52));
+
         // Potion
         this.challenges.add(new Drink(R.string.drink_energy_drink,15));
         this.challenges.add(new Drink(R.string.drink_poison,75));
@@ -89,6 +93,12 @@ public class GameController {
 
     public Beast getBeast (){
         return this.mBeast;
+    }
+
+    public void reduceBeastStress(int reduction){
+        int stress = mBeast.getStress();
+        mBeast.setStress(Math.max(0, stress-reduction));
+        notifyBeastListeners(new Mutation(Mutation.EBodyPart.NONE));
     }
 
     public List<ACostingAction> getActionsToPay() {
@@ -128,14 +138,23 @@ public class GameController {
         boolean consumed = action.consume();
         if (consumed){
             setNextAvailability(action.getDuration());
-            for(IBeastListener listener : mBeastListeners){
-                listener.onGameChanged();
-            }
-            for(IActionsListener listener : mActionsListeners){
-                listener.onActionChanged();
-            }
+            Mutation mutation = new Mutation(Mutation.EBodyPart.NONE);
+            notifyBeastListeners(mutation);
+            notifyActionListeners();
         }
         return consumed;
+    }
+    public boolean testOnBeast(ASalableAction action){
+        boolean applied = false;
+        // Temporary implementation : 'almost' static choice
+        mWallet.setAccount(mWallet.getAccount()+action.getEarnableMoney());
+        if (action instanceof SurgeryOperation) {
+            notifyBeastListeners(new Mutation(Mutation.EBodyPart.RIGHT_ARM));
+        } else if (action instanceof Inoculation){
+            notifyBeastListeners(new Mutation(Mutation.EBodyPart.LEFT_ARM));
+        }
+        notifyActionListeners();
+        return applied;
     }
 
     private void setNextAvailability(long duration) {
@@ -160,6 +179,12 @@ public class GameController {
         }
     }
 
+    private void notifyBeastListeners(Mutation mutationEvent){
+        for(IBeastListener listener : mBeastListeners){
+            listener.onBeastChanged(mutationEvent);
+        }
+    }
+
     public void registerActionsListener(IActionsListener listener){
         this.mActionsListeners.add(listener);
     }
@@ -169,6 +194,12 @@ public class GameController {
             if (al.equals(listener)) {
                 mActionsListeners.remove(listener);
             }
+        }
+    }
+
+    private void notifyActionListeners(){
+        for(IActionsListener listener : mActionsListeners){
+            listener.onActionChanged();
         }
     }
 

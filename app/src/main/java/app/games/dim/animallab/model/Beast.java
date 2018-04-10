@@ -26,6 +26,7 @@ package app.games.dim.animallab.model;
 
 public class Beast {
 
+    public static final int EYELID_WINK_DURATION = 5_000;
     private String name;
     private EGender gender;
     private int physicalHealth;

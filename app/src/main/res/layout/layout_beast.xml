@@ -83,26 +83,30 @@
         android:layout_marginTop="-65dp"
         android:src="@drawable/img_face" />
 
-    <!-- ears -->
-    <LinearLayout
+    <!-- eyelids -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="35dp"
         android:layout_marginRight="5dp"
         android:layout_alignTop="@+id/head" >
         <ImageView
-            android:id="@+id/left_eye"
+            android:id="@+id/left_eyelid"
             android:src="@drawable/img_right_eyelid"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="3dp"
+            android:layout_marginLeft="142dp"
             android:layout_width="29dp"
             android:layout_height="22dp" />
 
         <ImageView
-            android:id="@+id/right_eye"
+            android:id="@+id/right_eyelid"
             android:layout_width="31dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="134dp"
             android:src="@drawable/img_left_eyelid" />
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

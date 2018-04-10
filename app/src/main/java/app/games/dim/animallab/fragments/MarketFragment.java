@@ -36,6 +36,7 @@ import android.widget.TextView;
 import app.games.dim.animallab.R;
 import app.games.dim.animallab.adapters.AMarketAdapter;
 import app.games.dim.animallab.adapters.MerchandableActionsAdapter;
+import app.games.dim.animallab.listeners.IActionClickListener;
 import app.games.dim.animallab.model.actions.ASalableAction;
 
 /**
@@ -44,10 +45,12 @@ import app.games.dim.animallab.model.actions.ASalableAction;
 
 public class MarketFragment extends Fragment {
 
+    private IActionClickListener mListener;
     private Typeface mFont;
     private ListView mListView;
 
     private Button mInjectionButton;
+    private Button mSurgeryButton;
     private Button mPotionButton;
     private Button mGeneticButton;
     private Button mPsychoButton;
@@ -79,9 +82,26 @@ public class MarketFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof IActionClickListener) {
+            mListener = (IActionClickListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     private void initializeButtons(final View rootView){
         this.mInjectionButton = (Button) rootView.findViewById(R.id.injection_button);
         mapAction(this.mInjectionButton, rootView.getContext(), ASalableAction.EType.SYRINGE);
+
+        this.mSurgeryButton = (Button) rootView.findViewById(R.id.surgery_button);
+        mapAction(this.mSurgeryButton, rootView.getContext(), ASalableAction.EType.SURGERY);
 
         this.mPotionButton = (Button) rootView.findViewById(R.id.potion_button);
         mapAction(this.mPotionButton, rootView.getContext(), ASalableAction.EType.POTION);

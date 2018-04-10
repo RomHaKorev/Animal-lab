@@ -82,7 +82,7 @@ public class IndicatorsAdapter extends BaseAdapter {
     }
 
 
-    private void animateProgressBar(ProgressBar bar, int newValue, boolean reversed)
+    private void animateProgressBar(ProgressBar bar, int newValue)
     {
         int oldValue = bar.getProgress();
         ProgressBarAnimation anim = new ProgressBarAnimation(bar, oldValue, newValue);
@@ -107,30 +107,33 @@ public class IndicatorsAdapter extends BaseAdapter {
                 img.setImageResource(R.drawable.if_3_hospital_2774749);
                 label.setText(mContext.getString(R.string.physical_health));
                 mItems[position] = bar;
+                bar.setProgressDrawable(mContext.getDrawable(R.drawable.nominal_horizontal_progressbar));
                 newValue = mBeast.getPhysicalHealth();
-                animateProgressBar(bar, newValue,false);
+                animateProgressBar(bar, newValue);
                 break;
             case HEALTH_MENTAL:
                 img.setImageResource(R.drawable.if_brain_1626489);
                 label.setText(mContext.getString(R.string.mental_health));
                 mItems[position] = bar;
+                bar.setProgressDrawable(mContext.getDrawable(R.drawable.nominal_horizontal_progressbar));
                 newValue = mBeast.getMentalHealth();
-                animateProgressBar(bar, newValue, false);
+                animateProgressBar(bar, newValue);
                 break;
             case STRESS:
                 img.setImageResource(R.drawable.if_smiley__6_2291008);
                 label.setText(mContext.getString(R.string.stress));
                 mItems[position] = bar;
+                bar.setProgressDrawable(mContext.getDrawable(R.drawable.reverse_horizontal_progressbar));
                 newValue = mBeast.getStress();
-                animateProgressBar(bar, newValue, true);
+                animateProgressBar(bar, newValue);
                 break;
             case HUNGER:
                 img.setImageResource(R.drawable.if_burger_653249);
                 label.setText(mContext.getString(R.string.hunger));
                 mItems[position] = bar;
+                bar.setProgressDrawable(mContext.getDrawable(R.drawable.reverse_horizontal_progressbar));
                 newValue = mBeast.getHunger();
-                bar = new ProgressBar(mContext, null, R.drawable.reverse_horizontal_progressbar);
-                animateProgressBar(bar, newValue, true);
+                animateProgressBar(bar, newValue);
                 break;
         }
         return view;

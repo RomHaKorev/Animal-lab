@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Animal Lab</string>
+    <string name="studio_text">D.I.M. Studio</string>
+
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -27,6 +29,7 @@
     <string name="operate">Operate</string>
     <string name="inoculate_sodium">Inoculate Sodium</string>
     <string name="inoculate_keratin">Inoculate Keratin</string>
+    <string name="transplant_crab_claw">Transplant Crab Claw</string>
     <string name="drink_energy_drink">Drink Energy Drink</string>
     <string name="drink_poison">Drink Poison</string>
     <string name="inject_crab_dna">Inject Crab DNA</string>

@@ -44,7 +44,6 @@ import app.games.dim.animallab.model.GameController;
  */
 public class ActionsFragment extends Fragment implements IActionsListener {
 
-    private IActionClickListener mListener;
     private Context mContext;
     private ListView mListView;
 
@@ -82,18 +81,11 @@ public class ActionsFragment extends Fragment implements IActionsListener {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IActionClickListener) {
-            mListener = (IActionClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement IActionClickListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override

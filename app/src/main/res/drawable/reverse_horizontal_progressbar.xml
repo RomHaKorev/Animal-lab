@@ -35,14 +35,10 @@
                 <gradient
                     android:startColor="#ff990000"
                     android:centerColor="#ffdda400"
-                    android:centerX="0.75"
+                    android:centerX="0.25"
                     android:endColor="#ff007700"
                     android:angle="180" />
             </shape>
         </clip>
     </item>
-    <!--android:startColor="#ffffd300"-->
-    <!--android:centerColor="#ffffb600"-->
-    <!--android:centerY="0.75"-->
-    <!--android:endColor="#ffffcb00"-->
 </layer-list>

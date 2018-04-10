@@ -18,11 +18,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package app.games.dim.animallab.fragments;
+package app.games.dim.animallab.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import app.games.dim.animallab.fragments.ActionsFragment;
+import app.games.dim.animallab.fragments.BeastFragment;
+import app.games.dim.animallab.fragments.MarketFragment;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

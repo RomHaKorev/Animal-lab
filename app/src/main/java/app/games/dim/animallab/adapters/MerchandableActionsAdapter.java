@@ -22,18 +22,27 @@ package app.games.dim.animallab.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 import app.games.dim.animallab.R;
+import app.games.dim.animallab.activities.GameActivity;
+import app.games.dim.animallab.formatters.MoneyFormatter;
 import app.games.dim.animallab.listeners.IActionClickListener;
 import app.games.dim.animallab.model.GameController;
 import app.games.dim.animallab.model.actions.AAction;
@@ -48,15 +57,10 @@ public class MerchandableActionsAdapter extends AMarketAdapter {
     private static final int HEADER_INDEX = 0;
 
     private ASalableAction.EType mType;
-    private final DecimalFormat mFormat;
 
     public MerchandableActionsAdapter(Context context, ASalableAction.EType type){
         super(context);
         this.mType = type;
-
-        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-        dfs.setGroupingSeparator(' ');
-        this.mFormat = new DecimalFormat("###,### $");
 
     }
 
@@ -101,12 +105,67 @@ public class MerchandableActionsAdapter extends AMarketAdapter {
         }
         else {
             List<ASalableAction> actions = GameController.getInstance().getChallengingActions(mType);
-            ASalableAction action = actions.get(position-1);
+            final ASalableAction action = actions.get(position-1);
             actionName.setText(mContext.getString(action.getNameId()));
-            actionEarn.setText(this.mFormat.format(action.getEarnableMoney()));
+            actionName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPopup(mContext, action);
+                }
+            });
+            actionEarn.setText(MoneyFormatter.FORMATTER.format(action.getEarnableMoney()));
             actionRisk.setText(action.getRisk()+"%");
         }
 
         return view;
+    }
+
+    // The method that displays the popup.
+    private void showPopup(final Context context, final ASalableAction action) {
+        int popupWidth = 610;
+        int popupHeight = 320;
+
+        // Inflate the popup_market_action.xml
+        LayoutInflater layoutInflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = layoutInflater.inflate(R.layout.popup_market_action, null);
+
+        // Creating the PopupWindow
+        final PopupWindow popup = new PopupWindow(context);
+        popup.setContentView(layout);
+        popup.setWidth(popupWidth);
+        popup.setHeight(popupHeight);
+        popup.setFocusable(true);
+
+        // Clear the default translucent background
+        //popup.setBackgroundDrawable(new BitmapDrawable());
+
+        popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+        // Get references to OK/Cancel buttons, and map actions on buttons
+        Button cancel = (Button) layout.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+        Button ok = (Button) layout.findViewById(R.id.ok);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popup.dismiss();
+                GameController.getInstance().testOnBeast(action);
+                ((IActionClickListener)view.getContext()).onActionSelected(action);
+            }
+        });
+
+        // Set dedicated font on all text areas (TextView, Buttons...)
+        TextView titleView = (TextView) layout.findViewById(R.id.title);
+        titleView.setTypeface(mFont);
+        TextView message = (TextView) layout.findViewById(R.id.message);
+        message.setTypeface(mFont);
+        cancel.setTypeface(mFont);
+        ok.setTypeface(mFont);
     }
 }
