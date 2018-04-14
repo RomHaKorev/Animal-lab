@@ -140,7 +140,8 @@ public class MerchandableActionsAdapter extends AMarketAdapter {
         // Clear the default translucent background
         //popup.setBackgroundDrawable(new BitmapDrawable());
 
-        popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+        //popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+        popup.showAtLocation(((Activity)mContext).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 
         // Get references to OK/Cancel buttons, and map actions on buttons
         Button cancel = (Button) layout.findViewById(R.id.cancel);
@@ -159,7 +160,6 @@ public class MerchandableActionsAdapter extends AMarketAdapter {
                 ((IActionClickListener)view.getContext()).onActionSelected(action);
             }
         });
-
         // Set dedicated font on all text areas (TextView, Buttons...)
         TextView titleView = (TextView) layout.findViewById(R.id.title);
         titleView.setTypeface(mFont);

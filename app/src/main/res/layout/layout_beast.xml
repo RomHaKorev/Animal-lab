@@ -81,32 +81,63 @@
         android:layout_alignTop="@+id/body"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-65dp"
-        android:src="@drawable/img_face" />
+        android:src="@drawable/img_face_2"/>
 
     <!-- eyelids -->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="116dp"
+        android:layout_height="50dp"
         android:layout_marginTop="35dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignTop="@+id/head" >
-        <ImageView
-            android:id="@+id/left_eyelid"
-            android:src="@drawable/img_right_eyelid"
-            android:layout_alignParentTop="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignTop="@+id/head"
+        android:layout_alignBottom="@+id/head"
+        android:layout_alignRight="@+id/head"
+        android:layout_alignLeft="@+id/head">
+
+        <FrameLayout
+            android:layout_width="30dp"
+            android:layout_height="24dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="142dp"
-            android:layout_width="29dp"
-            android:layout_height="22dp" />
+            android:layout_alignParentTop="true">
+            <ImageView
+                android:id="@+id/right_eye"
+                android:layout_width="26dp"
+                android:layout_height="22dp"
+                android:src="@drawable/img_right_eye" />
+            <ImageView
+                android:id="@+id/right_eyelid"
+                android:layout_width="31dp"
+                android:layout_height="24dp"
+                android:src="@drawable/img_right_eyelid" />
+        </FrameLayout>
 
         <ImageView
-            android:id="@+id/right_eyelid"
-            android:layout_width="31dp"
+            android:id="@+id/mouth"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:src="@drawable/img_mouth" />
+
+
+        <FrameLayout
+            android:layout_width="30dp"
             android:layout_height="24dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="134dp"
-            android:src="@drawable/img_left_eyelid" />
+            android:layout_alignParentTop="true">
+            <ImageView
+                android:id="@+id/left_eye"
+                android:layout_width="30dp"
+                android:layout_height="24dp"
+                android:src="@drawable/img_left_eye" />
+            <ImageView
+                android:id="@+id/left_eyelid"
+                android:layout_width="31dp"
+                android:layout_height="24dp"
+                android:src="@drawable/img_left_eyelid" />
+        </FrameLayout>
     </RelativeLayout>
 </RelativeLayout>

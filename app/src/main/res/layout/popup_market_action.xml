@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/popup"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_height="500dp"
     android:padding="15dp"
     android:orientation="vertical" >
 
-    <TextView
+ <TextView
         android:id="@+id/title"
         android:textColor="#ffffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="1dp"
         android:text="Title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -18,29 +18,29 @@
         android:id="@+id/message"
         android:textColor="#ffffffff"
         android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="1dp"
         android:text="This action can have several consequencies." />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal" >
 
         <Button
             android:id="@+id/cancel"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:text="Cancel" />
         <Button
             android:id="@+id/ok"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:text="OK" />
 
     </LinearLayout>

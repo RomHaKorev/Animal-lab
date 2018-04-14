@@ -109,8 +109,8 @@ public class MarketFragment extends Fragment {
         this.mGeneticButton = (Button) rootView.findViewById(R.id.genetic_button);
         mapAction(this.mGeneticButton, rootView.getContext(), ASalableAction.EType.DNA);
 
-        this.mPsychoButton = (Button) rootView.findViewById(R.id.psycho_button);
-        this.mWhipButton = (Button) rootView.findViewById(R.id.whip_button);
+        /*this.mPsychoButton = (Button) rootView.findViewById(R.id.psycho_button);
+        this.mWhipButton = (Button) rootView.findViewById(R.id.whip_button);*/
     }
 
     private void mapAction(Button button, final Context context, final ASalableAction.EType type){
