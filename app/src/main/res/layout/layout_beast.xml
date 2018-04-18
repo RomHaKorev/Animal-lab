@@ -13,14 +13,14 @@
         android:layout_alignTop="@+id/head"
         android:id="@+id/linearLayout">
         <ImageView
-            android:id="@+id/left_ear"
+            android:id="@+id/right_ear"
             android:src="@drawable/part_pig_right_ear"
             android:layout_marginTop="10dp"
             android:layout_width="120dp"
             android:layout_height="88dp" />
 
         <ImageView
-            android:id="@+id/right_ear"
+            android:id="@+id/left_ear"
             android:layout_width="115dp"
             android:layout_height="88dp"
             android:src="@drawable/part_pig_left_ear" />
