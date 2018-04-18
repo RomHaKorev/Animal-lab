@@ -36,6 +36,7 @@ import app.games.dim.animallab.model.actions.Feed;
 import app.games.dim.animallab.model.actions.Inoculation;
 import app.games.dim.animallab.model.actions.Nurse;
 import app.games.dim.animallab.model.actions.SurgeryOperation;
+import app.games.dim.animallab.model.structures.BeastTemplate;
 
 /**
  * Created by Igor on 09/02/2018.
@@ -98,7 +99,7 @@ public class GameController {
     public void reduceBeastStress(int reduction){
         int stress = mBeast.getStress();
         mBeast.setStress(Math.max(0, stress-reduction));
-        notifyBeastListeners(new Mutation(Mutation.EBodyPart.NONE));
+        notifyBeastListeners(new Mutation(BeastTemplate.EPart.NONE, -1));
     }
 
     public List<ACostingAction> getActionsToPay() {
@@ -138,7 +139,7 @@ public class GameController {
         boolean consumed = action.consume();
         if (consumed){
             setNextAvailability(action.getDuration());
-            Mutation mutation = new Mutation(Mutation.EBodyPart.NONE);
+            Mutation mutation = new Mutation(BeastTemplate.EPart.NONE, -1);
             notifyBeastListeners(mutation);
             notifyActionListeners();
         }
@@ -148,11 +149,13 @@ public class GameController {
         boolean applied = false;
         // Temporary implementation : 'almost' static choice
         mWallet.setAccount(mWallet.getAccount()+action.getEarnableMoney());
-        if (action instanceof SurgeryOperation) {
+        /*if (action instanceof SurgeryOperation) {
             notifyBeastListeners(new Mutation(Mutation.EBodyPart.RIGHT_ARM));
         } else if (action instanceof Inoculation){
             notifyBeastListeners(new Mutation(Mutation.EBodyPart.LEFT_ARM));
-        }
+        }*/
+        Mutation m = mBeast.mutate();
+        notifyBeastListeners(m);
         notifyActionListeners();
         return applied;
     }

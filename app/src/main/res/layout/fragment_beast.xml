@@ -58,7 +58,8 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <include layout="@layout/layout_beast" />
+        <include layout="@layout/layout_beast"
+            android:id="@+id/beast_view"/>
 
         <ListView
             android:id="@+id/indicators_list"

@@ -48,6 +48,8 @@ import app.games.dim.animallab.model.GameController;
 import app.games.dim.animallab.model.Mutation;
 import app.games.dim.animallab.model.actions.Inoculation;
 import app.games.dim.animallab.model.actions.SurgeryOperation;
+import app.games.dim.animallab.model.structures.BeastStructure;
+import app.games.dim.animallab.model.structures.BeastTemplate;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +63,8 @@ public class BeastFragment extends Fragment implements IBeastListener {
     private ImageView mBeastGender;
     private ListView mIndicatorsView;
 
+    private View mBeastView;
+
     private ImageView mRightEyelidView;
     private ImageView mLeftEyelidView;
     private ImageView mRightArmView;
@@ -71,6 +75,7 @@ public class BeastFragment extends Fragment implements IBeastListener {
 
     public BeastFragment() {
         // Required empty public constructor
+        mBeastView = null;
     }
 
     @Override
@@ -94,6 +99,8 @@ public class BeastFragment extends Fragment implements IBeastListener {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_beast, container, false);
 
+        mBeastView = rootView.findViewById(R.id.beast_view);
+
         TextView moneyLbl = (TextView) rootView.findViewById(R.id.money_label);
         moneyLbl.setTypeface(mFont);
         mMoneyText = (TextView) rootView.findViewById(R.id.money_value);
@@ -111,17 +118,6 @@ public class BeastFragment extends Fragment implements IBeastListener {
 
         mIndicatorsView = (ListView) rootView.findViewById(R.id.indicators_list);
         mIndicatorsView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));
-
-        ImageView bodyView = (ImageView) rootView.findViewById(R.id.body);
-        bodyView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
-            public void onSwipeBottom() {
-                if (this.accepted())
-                {
-                    Log.d(BeastFragment.class.getSimpleName(), "swipe");
-                    GameController.getInstance().reduceBeastStress(5);
-                }
-            }
-        });
 
         mRightArmView = (ImageView) rootView.findViewById(R.id.right_arm);
         mLeftArmView = (ImageView) rootView.findViewById(R.id.left_arm);
@@ -162,7 +158,7 @@ public class BeastFragment extends Fragment implements IBeastListener {
         Log.v(getClass().getSimpleName(),"onBeastChanged");
         setBeastIdentification();
         ((BaseAdapter) mIndicatorsView.getAdapter()).notifyDataSetChanged();
-        if (mutationEvent.bodyPart != Mutation.EBodyPart.NONE) {
+        if (mutationEvent.bodyPart != BeastTemplate.EPart.NONE) {
             onMutation(mutationEvent);
         }
     }
@@ -192,40 +188,63 @@ public class BeastFragment extends Fragment implements IBeastListener {
     }
 
     private void onMutation(final Mutation mutation){
+        if (mBeastView == null)
+            return;
+
+        final ImageView view;
+        switch(mutation.bodyPart) {
+            case ARM_LEFT:
+                view = mBeastView.findViewById(R.id.left_arm);
+                break;
+            case EAR_LEFT:
+                view = mBeastView.findViewById(R.id.left_ear);
+                break;
+            case EYE_LEFT:
+                view = mBeastView.findViewById(R.id.left_eye);
+                break;
+            case LEG_LEFT:
+                view = mBeastView.findViewById(R.id.left_foot);
+                break;
+            case ARM_RIGHT:
+                view = mBeastView.findViewById(R.id.right_arm);
+                break;
+            case EAR_RIGHT:
+                view = mBeastView.findViewById(R.id.right_ear);
+                break;
+            case EYE_RIGHT:
+                view = mBeastView.findViewById(R.id.right_eye);
+                break;
+            case LEG_RIGHT:
+                view = mBeastView.findViewById(R.id.right_foot);
+                break;
+            case BODY:
+                view = mBeastView.findViewById(R.id.body);
+                break;
+            case HEAD:
+                view = mBeastView.findViewById(R.id.head);
+                break;
+            case MOUTH:
+                view = mBeastView.findViewById(R.id.mouth);
+                break;
+            default:
+                view = null;
+        }
+        if (view == null)
+            return;
+
         AnimatorSet animator = new AnimatorSet();
-        if (mutation.bodyPart == Mutation.EBodyPart.RIGHT_ARM) {
-            ObjectAnimator changeAnimator = ObjectAnimator.ofFloat(mRightArmView, "alpha", 1);
-
-            changeAnimator.addListener(
-                    new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            mRightArmView.setImageResource(R.drawable.img_left_crab);
-                        }
+        ObjectAnimator changeAnimator = ObjectAnimator.ofFloat(view, "alpha", 1);
+        changeAnimator.addListener(
+                new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        view.setImageResource(mutation.new_image);
                     }
-            );
-            animator
-                    //      .play(ObjectAnimator.ofFloat(mRightArmView, "alpha",1))
-                    .play(changeAnimator)
-                    .after(ObjectAnimator.ofFloat(mRightArmView, "alpha", 0));
-        }
-        else if (mutation.bodyPart == Mutation.EBodyPart.LEFT_ARM){
-            ObjectAnimator changeAnimator = ObjectAnimator.ofFloat(mLeftArmView, "alpha", 1);
-            changeAnimator.addListener(
-                    new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            mLeftArmView.setImageResource(R.drawable.img_right_raw_flesh_right);
-                        }
-                    }
-            );
-            animator
-                    .play(changeAnimator)
-                    .after(ObjectAnimator.ofFloat(mLeftArmView, "alpha", 0));
-
-        }
+                }
+        );
+        animator.play(changeAnimator)
+                .after(ObjectAnimator.ofFloat(view, "alpha", 0));
         animator.setDuration(1500);
         animator.start();
 

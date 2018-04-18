@@ -20,6 +20,9 @@
 
 package app.games.dim.animallab.model;
 
+import app.games.dim.animallab.model.structures.BeastStructure;
+import app.games.dim.animallab.model.structures.BeastTemplate;
+
 /**
  * Created by Igor on 09/02/2018.
  */
@@ -34,6 +37,8 @@ public class Beast {
     private int stress;
     private int hunger;
 
+    private BeastStructure structure;
+
     public Beast(){
         this.name = "SpecimenXA392";
         this.gender = EGender.FEMALE;
@@ -41,6 +46,7 @@ public class Beast {
         this.physicalHealth = 75;
         this.stress = 50;
         this.hunger = 60;
+        this.structure = new BeastStructure();
     }
 
     public String getName () {
@@ -85,5 +91,9 @@ public class Beast {
 
     public void setHunger(int hunger) {
         this.hunger = hunger;
+    }
+
+    public Mutation mutate() {
+        return this.structure.mutate();
     }
 }
