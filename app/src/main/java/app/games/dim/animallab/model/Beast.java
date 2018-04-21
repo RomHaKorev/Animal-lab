@@ -20,8 +20,12 @@
 
 package app.games.dim.animallab.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+
 import app.games.dim.animallab.model.structures.BeastStructure;
-import app.games.dim.animallab.model.structures.BeastTemplate;
 
 /**
  * Created by Igor on 09/02/2018.

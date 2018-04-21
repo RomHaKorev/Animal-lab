@@ -122,19 +122,21 @@ public class MerchandableActionsAdapter extends AMarketAdapter {
 
     // The method that displays the popup.
     private void showPopup(final Context context, final ASalableAction action) {
-        int popupWidth = 610;
-        int popupHeight = 320;
+        //int popupWidth = 610;
+        //int popupHeight = 320;
 
         // Inflate the popup_market_action.xml
         LayoutInflater layoutInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = layoutInflater.inflate(R.layout.popup_market_action, null);
 
+        //TextView title = layout.findViewById()
+
         // Creating the PopupWindow
         final PopupWindow popup = new PopupWindow(context);
         popup.setContentView(layout);
-        popup.setWidth(popupWidth);
-        popup.setHeight(popupHeight);
+        //popup.setWidth(popupWidth);
+        //popup.setHeight(popupHeight);
         popup.setFocusable(true);
 
         // Clear the default translucent background

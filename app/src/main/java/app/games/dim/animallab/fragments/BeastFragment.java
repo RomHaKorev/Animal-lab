@@ -67,8 +67,6 @@ public class BeastFragment extends Fragment implements IBeastListener {
 
     private ImageView mRightEyelidView;
     private ImageView mLeftEyelidView;
-    private ImageView mRightArmView;
-    private ImageView mLeftArmView;
 
     private Handler mHandler;
     private Runnable mRunnable;
@@ -119,8 +117,6 @@ public class BeastFragment extends Fragment implements IBeastListener {
         mIndicatorsView = (ListView) rootView.findViewById(R.id.indicators_list);
         mIndicatorsView.setAdapter(new IndicatorsAdapter(getContext(), GameController.getInstance().getBeast()));
 
-        mRightArmView = (ImageView) rootView.findViewById(R.id.right_arm);
-        mLeftArmView = (ImageView) rootView.findViewById(R.id.left_arm);
         mRightEyelidView = (ImageView) rootView.findViewById(R.id.right_eyelid);
         mLeftEyelidView = (ImageView) rootView.findViewById(R.id.left_eyelid);
 
