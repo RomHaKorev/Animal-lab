@@ -3,25 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.games.dim.animallab.activities.SplashscreenActivity">
-
+    tools:context="app.games.dim.animallab.activities.SplashscreenActivity"
+    android:background="#666666"
+    >
     <ImageView
         android:id="@+id/splash"
-        android:src="@drawable/noun_56811_cc"
+        android:src="@drawable/img_shelley_studio"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerInside"
-        android:background="#cc9a4025"/>
+        android:background="#666666"/>
 
-    <TextView
-        android:rotation="-10"
-        android:id="@+id/studio_label"
-        android:textSize="32dp"
-        android:textColor="#ffffffff"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="@string/studio_text"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:textAlignment="center" />
 </RelativeLayout>

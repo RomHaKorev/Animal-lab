@@ -20,10 +20,6 @@ public class SplashscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Capture_it.ttf");
-        TextView studioLabel = (TextView) findViewById(R.id.studio_label);
-        studioLabel.setTypeface(font);
-
         ImageView imageView = (ImageView) findViewById(R.id.splash);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

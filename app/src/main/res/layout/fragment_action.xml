@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#555555">
 
     <TextView
         android:id="@+id/title"
@@ -12,7 +13,7 @@
         android:gravity="center_horizontal"
         android:padding="@dimen/text_margin"
         android:text="@string/actions"
-        android:textColor="#ff9a4025"
+        android:textColor="#ffffff"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <ListView

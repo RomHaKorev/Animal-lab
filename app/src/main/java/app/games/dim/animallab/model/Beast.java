@@ -23,8 +23,6 @@ package app.games.dim.animallab.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
-
 import app.games.dim.animallab.model.structures.BeastStructure;
 
 /**

@@ -104,7 +104,7 @@ public class IndicatorsAdapter extends BaseAdapter {
         int newValue = -1;
         switch (position) {
             case HEALTH_PHY:
-                img.setImageResource(R.drawable.if_3_hospital_2774749);
+                img.setImageResource(R.drawable.img_beast_heart);
                 label.setText(mContext.getString(R.string.physical_health));
                 mItems[position] = bar;
                 bar.setProgressDrawable(mContext.getDrawable(R.drawable.nominal_horizontal_progressbar));
@@ -112,7 +112,7 @@ public class IndicatorsAdapter extends BaseAdapter {
                 animateProgressBar(bar, newValue);
                 break;
             case HEALTH_MENTAL:
-                img.setImageResource(R.drawable.if_brain_1626489);
+                img.setImageResource(R.drawable.img_beast_brain);
                 label.setText(mContext.getString(R.string.mental_health));
                 mItems[position] = bar;
                 bar.setProgressDrawable(mContext.getDrawable(R.drawable.nominal_horizontal_progressbar));
@@ -120,7 +120,7 @@ public class IndicatorsAdapter extends BaseAdapter {
                 animateProgressBar(bar, newValue);
                 break;
             case STRESS:
-                img.setImageResource(R.drawable.if_smiley__6_2291008);
+                img.setImageResource(R.drawable.img_beast_stress);
                 label.setText(mContext.getString(R.string.stress));
                 mItems[position] = bar;
                 bar.setProgressDrawable(mContext.getDrawable(R.drawable.reverse_horizontal_progressbar));
@@ -128,7 +128,7 @@ public class IndicatorsAdapter extends BaseAdapter {
                 animateProgressBar(bar, newValue);
                 break;
             case HUNGER:
-                img.setImageResource(R.drawable.if_burger_653249);
+                img.setImageResource(R.drawable.img_beast_food);
                 label.setText(mContext.getString(R.string.hunger));
                 mItems[position] = bar;
                 bar.setProgressDrawable(mContext.getDrawable(R.drawable.reverse_horizontal_progressbar));
