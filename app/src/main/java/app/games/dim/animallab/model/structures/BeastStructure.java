@@ -42,8 +42,8 @@ public class BeastStructure {
     public Mutation mutate() {
         List<BeastTemplate.EPart> random_part_list = BeastTemplate.EPart.shuffle();
         List<BeastTemplate.EType> random_type_list = BeastTemplate.EType.shuffle();
-        for (BeastTemplate.EPart random_part: random_part_list) {
-            for (BeastTemplate.EType random_type: random_type_list) {
+        for (BeastTemplate.EType random_type: random_type_list) {
+            for (BeastTemplate.EPart random_part: random_part_list) {
                 if (random_type == m_parts.get(random_part))
                     continue;
                 BeastTemplate tml = BeastTemplate.get(random_type);

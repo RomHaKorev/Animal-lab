@@ -100,7 +100,9 @@ public class MerchandableActionsAdapter extends AMarketAdapter {
         // Fill TextView with their data
         if (position == HEADER_INDEX){
             actionName.setText("");
-            actionRisk.setText("Risk");
+            actionRisk.setText("Mutation Risk");
+            actionRisk.setText("Injuries Risk");
+            actionRisk.setText("Duration");
             actionEarn.setText("Gain");
         }
         else {

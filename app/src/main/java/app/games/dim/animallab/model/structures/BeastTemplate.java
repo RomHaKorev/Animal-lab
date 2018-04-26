@@ -28,18 +28,11 @@ public abstract class BeastTemplate {
         MOUTH,
         NONE;
 
-        private static final List<EPart> _VALUES =
-                Collections.unmodifiableList(Arrays.asList(values()));
-        private static final int _SIZE = _VALUES.size() - 1;
-        private static final Random _RANDOM = new Random();
-
-        public static EPart random() {
-            return _VALUES.get(_RANDOM.nextInt(_SIZE));
-        }
-
         public static List<EPart> shuffle() {
-            List<EPart> r = Arrays.asList(values());
+            List<EPart> r = new ArrayList<EPart>(Arrays.asList(values()));
+            r.remove(r.size() - 1);
             Collections.shuffle(r);
+            Log.v("ERD", r.toString());
             return r;
         }
     }
@@ -52,18 +45,10 @@ public abstract class BeastTemplate {
         CRAB,
         PIGV2;
 
-        private static final List<EType> _VALUES =
-                Collections.unmodifiableList(Arrays.asList(values()));
-        private static final int _SIZE = _VALUES.size();
-        private static final Random _RANDOM = new Random();
-
-        public static EType random() {
-            return _VALUES.get(_RANDOM.nextInt(_SIZE));
-        }
-
         public static List<EType> shuffle() {
             List<EType> r = Arrays.asList(values());
             Collections.shuffle(r);
+            Log.v("ERD", r.toString());
             return r;
         }
     }
