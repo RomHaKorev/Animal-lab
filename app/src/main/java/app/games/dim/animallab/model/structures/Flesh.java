@@ -16,7 +16,7 @@ public class Flesh extends BeastTemplate {
     public int image(EPart id) {
         switch(id) {
             case ARM_RIGHT:
-                return R.drawable.part_flesh_right_arm;
+                return R.id.part_flesh_right_arm;
             default:
                 return -1;
         }
@@ -24,9 +24,5 @@ public class Flesh extends BeastTemplate {
 
     public Flesh() {
         super();
-    }
-
-    static {
-        BeastTemplate.register(new Flesh());
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="116dp"
+    android:layout_height="104dp"
+    android:layout_alignBottom="@+id/body"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="120dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:id="@+id/part_pig_head"
+        android:layout_width="116dp"
+        android:layout_height="104dp"
+        android:src="@drawable/part_pig_head"/>
+    <ImageView
+        android:id="@+id/part_octopus_face"
+        android:layout_width="116dp"
+        android:layout_height="104dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_octopus_face"/>
+
+
+    <include layout="@layout/layout_beast_mouth"
+        android:id="@+id/mouth"/>
+    <include layout="@layout/layout_beast_right_eye"
+        android:id="@+id/right_eye"/>
+    <include layout="@layout/layout_beast_left_eye"
+        android:id="@+id/left_eye"/>
+</FrameLayout>

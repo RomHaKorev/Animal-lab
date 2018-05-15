@@ -14,7 +14,7 @@ public class Crab extends BeastTemplate {
     public int image(EPart id) {
         switch(id) {
             case ARM_LEFT:
-                return R.drawable.part_crab_left_arm;
+                return R.id.part_crab_left_arm;
             default:
                 return -1;
         }
@@ -22,9 +22,5 @@ public class Crab extends BeastTemplate {
 
     public Crab() {
         super();
-    }
-
-    static {
-        BeastTemplate.register(new Crab());
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="77dp"
+    android:layout_height="75dp"
+    android:layout_alignBottom="@+id/body"
+    android:layout_marginBottom="-50dp"
+    android:layout_alignRight="@id/body"
+    android:layout_marginRight="60dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:id="@+id/part_pig_right_foot"
+        android:src="@drawable/part_pig_right_foot"
+        android:layout_width="77dp"
+        android:layout_height="75dp" />
+    <ImageView
+        android:id="@+id/part_goat_right_foot"
+        android:src="@drawable/part_goat_right_foot"
+        android:layout_marginLeft="10dp"
+        android:layout_width="77dp"
+        android:layout_height="75dp"
+        android:visibility="invisible"
+        />
+    <ImageView
+        android:id="@+id/part_octopus_right_foot"
+        android:src="@drawable/part_octopus_right_foot"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="invisible"
+        />
+</FrameLayout>
+
+
+    <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="-40dp"
+            android:layout_alignBottom="@+id/body">
+            <ImageView
+                android:id="@+id/right_foot"
+                android:src="@drawable/part_pig_right_foot"
+                android:layout_width="77dp"
+                android:layout_height="75dp" />
+            <ImageView
+                android:id="@+id/left_foot"
+                android:src="@drawable/part_pig_left_foot"
+                android:layout_width="72dp"
+                android:layout_height="75dp" />
+        </LinearLayout>-->

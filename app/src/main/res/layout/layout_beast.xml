@@ -5,140 +5,26 @@
     android:background="@drawable/background" >
 
     <!-- ears -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="-15dp"
-        android:layout_alignTop="@+id/head"
-        android:id="@+id/linearLayout">
-        <ImageView
-            android:id="@+id/right_ear"
-            android:src="@drawable/part_pig_right_ear"
-            android:layout_marginTop="10dp"
-            android:layout_width="120dp"
-            android:layout_height="88dp" />
-
-        <ImageView
-            android:id="@+id/left_ear"
-            android:layout_width="115dp"
-            android:layout_height="88dp"
-            android:src="@drawable/part_pig_left_ear" />
-    </LinearLayout>
-
+    <include layout="@layout/layout_beast_left_ear"
+        android:id="@+id/left_leg"/>
+    <include layout="@layout/layout_beast_right_ear"
+        android:id="@+id/left_leg"/>
     <!-- feet -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="-40dp"
-        android:layout_alignBottom="@+id/body">
-        <ImageView
-            android:id="@+id/right_foot"
-            android:src="@drawable/part_pig_right_foot"
-            android:layout_width="77dp"
-            android:layout_height="75dp" />
-        <ImageView
-            android:id="@+id/left_foot"
-            android:src="@drawable/part_pig_left_foot"
-            android:layout_width="72dp"
-            android:layout_height="75dp" />
-    </LinearLayout>
+    <include layout="@layout/layout_beast_right_leg"
+        android:id="@+id/right_leg"/>
+    <include layout="@layout/layout_beast_left_leg"
+        android:id="@+id/left_leg"/>
 
     <!-- arms -->
-    <ImageView
-        android:id="@+id/left_arm"
-        android:layout_width="112dp"
-        android:layout_height="137dp"
-        android:layout_alignTop="@+id/body"
-        android:layout_alignLeft="@id/body"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="63dp"
-        android:src="@drawable/part_pig_left_arm" />
+    <include layout="@layout/layout_beast_left_arm"
+        android:id="@+id/left_arm"/>
+    
+    <include layout="@layout/layout_beast_right_arm"
+        android:id="@+id/right_arm"/>
 
-    <ImageView
-        android:id="@+id/right_arm"
-        android:layout_width="80dp"
-        android:layout_height="133dp"
-        android:layout_alignTop="@+id/body"
-        android:layout_marginTop="13dp"
-        android:layout_alignRight="@id/body"
-        android:layout_marginRight="78dp"
-        android:src="@drawable/part_pig_right_arm" />
+    <include layout="@layout/layout_beast_body"
+        android:id="@+id/body"/>
 
-    <ImageView
-        android:id="@+id/body"
-        android:layout_width="125dp"
-        android:layout_height="162dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/part_pig_body" />
-
-    <ImageView
-        android:id="@+id/head"
-        android:layout_width="116dp"
-        android:layout_height="104dp"
-        android:layout_alignTop="@+id/body"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-65dp"
-        android:src="@drawable/part_pig_head"/>
-
-    <!-- eyelids -->
-    <RelativeLayout
-        android:layout_width="116dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_alignTop="@+id/head"
-        android:layout_alignBottom="@+id/head"
-        android:layout_alignRight="@+id/head"
-        android:layout_alignLeft="@+id/head">
-
-        <FrameLayout
-            android:layout_width="30dp"
-            android:layout_height="24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true">
-            <ImageView
-                android:layout_marginTop="2dp"
-                android:id="@+id/right_eye"
-                android:layout_width="24dp"
-                android:layout_height="22dp"
-                android:src="@drawable/part_pig_right_eye" />
-            <ImageView
-                android:id="@+id/right_eyelid"
-                android:layout_width="31dp"
-                android:layout_height="24dp"
-                android:src="@drawable/part_pig_right_eyelid" />
-        </FrameLayout>
-
-        <ImageView
-            android:id="@+id/mouth"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:src="@drawable/part_pig_mouth" />
-
-
-        <FrameLayout
-            android:layout_width="30dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true">
-            <ImageView
-                android:id="@+id/left_eye"
-                android:layout_width="30dp"
-                android:layout_height="24dp"
-                android:src="@drawable/part_pig_left_eye" />
-            <ImageView
-                android:id="@+id/left_eyelid"
-                android:layout_width="31dp"
-                android:layout_height="24dp"
-                android:src="@drawable/part_pig_left_eyelid" />
-        </FrameLayout>
-    </RelativeLayout>
+    <include layout="@layout/layout_beast_head"
+        android:id="@+id/head"/>
 </RelativeLayout>

@@ -16,7 +16,7 @@ public class Goat extends BeastTemplate {
     public int image(EPart id) {
         switch(id) {
             case LEG_RIGHT:
-                return R.drawable.part_goat_right_foot;
+                return R.id.part_goat_right_foot;
             default:
                 return -1;
         }
@@ -24,9 +24,5 @@ public class Goat extends BeastTemplate {
 
     public Goat() {
         super();
-    }
-
-    static {
-        BeastTemplate.register(new Goat());
     }
 }

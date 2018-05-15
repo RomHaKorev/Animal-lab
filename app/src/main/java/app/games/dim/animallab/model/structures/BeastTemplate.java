@@ -32,7 +32,6 @@ public abstract class BeastTemplate {
             List<EPart> r = new ArrayList<EPart>(Arrays.asList(values()));
             r.remove(r.size() - 1);
             Collections.shuffle(r);
-            Log.v("ERD", r.toString());
             return r;
         }
     }
@@ -43,12 +42,13 @@ public abstract class BeastTemplate {
         INSECT,
         GOAT,
         CRAB,
-        PIGV2;
+        PIGV2,
+        OCTOPUS,
+        MISC;
 
         public static List<EType> shuffle() {
             List<EType> r = Arrays.asList(values());
             Collections.shuffle(r);
-            Log.v("ERD", r.toString());
             return r;
         }
     }
@@ -56,6 +56,7 @@ public abstract class BeastTemplate {
     public abstract int layout();
     public abstract int image(EPart id);
     public abstract EType id();
+
 
     public BeastTemplate() {}
 
@@ -65,9 +66,6 @@ public abstract class BeastTemplate {
     }
 
     public static BeastTemplate get(EType id) {
-        for(BeastTemplate.EType foobar: BeastTemplate.strcts.keySet()) {
-            Log.v("ERD", "" + foobar);
-        }
         return strcts.get(id);
     }
 }

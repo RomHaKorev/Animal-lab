@@ -23,6 +23,7 @@ package app.games.dim.animallab.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import app.games.dim.animallab.R;
 import app.games.dim.animallab.listeners.IActionsListener;
@@ -71,7 +72,7 @@ public class GameController {
 
     private void addSalableActions(){
         // Syringe
-        this.challenges.add(new Inoculation(R.string.inoculate_sodium, 31));
+        this.challenges.add(new Inoculation(R.string.inoculate_sodium, 100));
         this.challenges.add(new Inoculation(R.string.inoculate_keratin, 45));
 
         // Surgery
@@ -99,7 +100,7 @@ public class GameController {
     public void reduceBeastStress(int reduction){
         int stress = mBeast.getStress();
         mBeast.setStress(Math.max(0, stress-reduction));
-        notifyBeastListeners(new Mutation(BeastTemplate.EPart.NONE, -1));
+        notifyBeastListeners(new Mutation(BeastTemplate.EPart.NONE, -1, -1));
     }
 
     public List<ACostingAction> getActionsToPay() {
@@ -139,7 +140,7 @@ public class GameController {
         boolean consumed = action.consume();
         if (consumed){
             setNextAvailability(action.getDuration());
-            Mutation mutation = new Mutation(BeastTemplate.EPart.NONE, -1);
+            Mutation mutation = new Mutation(BeastTemplate.EPart.NONE, -1, -1);
             notifyBeastListeners(mutation);
             notifyActionListeners();
         }
@@ -147,15 +148,14 @@ public class GameController {
     }
     public boolean testOnBeast(ASalableAction action){
         boolean applied = false;
-        // Temporary implementation : 'almost' static choice
         mWallet.setAccount(mWallet.getAccount()+action.getEarnableMoney());
-        /*if (action instanceof SurgeryOperation) {
-            notifyBeastListeners(new Mutation(Mutation.EBodyPart.RIGHT_ARM));
-        } else if (action instanceof Inoculation){
-            notifyBeastListeners(new Mutation(Mutation.EBodyPart.LEFT_ARM));
-        }*/
-        Mutation m = mBeast.mutate();
-        notifyBeastListeners(m);
+        double risk = action.getRisk();
+        Random rand = new Random();
+        double check = rand.nextDouble() * 100.0 ;
+        if (check < risk) {
+            Mutation m = mBeast.mutate();
+            notifyBeastListeners(m);
+        }
         notifyActionListeners();
         return applied;
     }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="30dp"
+    android:layout_height="24dp"
+    android:layout_alignTop="@+id/head"
+    android:layout_alignLeft="@+id/head"
+    android:layout_marginTop="34dp"
+    android:layout_marginLeft="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="3dp"
+        android:id="@+id/part_pig_right_eye"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:src="@drawable/part_pig_right_eye" />
+
+    <ImageView
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/part_octopus_right_eye"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_octopus_right_eye" />
+
+    <ImageView
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/part_misc_right_eye_drug"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_misc_right_eye_drug" />
+
+    <ImageView
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/part_misc_right_eye_drug_red"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_misc_right_eye_drug_red" />
+
+    <ImageView
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/part_misc_right_eye_hole"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_misc_right_eye_hole" />
+
+    <ImageView
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/part_misc_right_eye_snake"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_misc_right_eye_snake" />
+
+    <ImageView
+        android:id="@+id/right_eyelid"
+        android:layout_width="31dp"
+        android:layout_height="24dp"
+        android:src="@drawable/part_pig_right_eyelid" />
+
+
+</FrameLayout>

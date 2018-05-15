@@ -16,7 +16,9 @@ public class Insect extends BeastTemplate {
     public int image(EPart id) {
         switch(id) {
             case LEG_LEFT:
-                return R.drawable.part_insect_left_foot;
+                return R.id.part_insect_left_foot;
+            case MOUTH:
+                return R.id.part_insect_mouth;
             default:
                 return -1;
         }
@@ -24,9 +26,5 @@ public class Insect extends BeastTemplate {
 
     public Insect() {
         super();
-    }
-
-    static {
-        BeastTemplate.register(new Insect());
     }
 }

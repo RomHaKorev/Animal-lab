@@ -22,27 +22,27 @@ public class Pig extends BeastTemplate {
     public int image(EPart id) {
         switch(id) {
             case ARM_LEFT:
-                return R.drawable.part_pig_left_arm;
+                return R.id.part_pig_left_arm;
             case EAR_LEFT:
-                return R.drawable.part_pig_left_ear;
+                return R.id.part_pig_left_ear;
             case EYE_LEFT:
-                return R.drawable.part_pig_left_eye;
+                return R.id.part_pig_left_eye;
             case LEG_LEFT:
-                return R.drawable.part_pig_left_foot;
+                return R.id.part_pig_left_foot;
             case ARM_RIGHT:
-                return R.drawable.part_pig_right_arm;
+                return R.id.part_pig_right_arm;
             case EAR_RIGHT:
-                return R.drawable.part_pig_right_ear;
+                return R.id.part_pig_right_ear;
             case EYE_RIGHT:
-                return R.drawable.part_pig_right_eye;
+                return R.id.part_pig_right_eye;
             case LEG_RIGHT:
-                return R.drawable.part_pig_right_foot;
+                return R.id.part_pig_right_foot;
             case BODY:
-                return R.drawable.part_pig_body;
+                return R.id.part_pig_body;
             case HEAD:
-                return R.drawable.part_pig_head;
+                return R.id.part_pig_head;
             case MOUTH:
-                return R.drawable.part_pig_mouth;
+                return R.id.part_pig_mouth;
             default:
                 return -1;
         }
@@ -50,10 +50,5 @@ public class Pig extends BeastTemplate {
 
     public Pig() {
         super();
-    }
-
-    static {
-        Log.v("ERD", "registering: PIG");
-        BeastTemplate.register(new Pig());
     }
 }

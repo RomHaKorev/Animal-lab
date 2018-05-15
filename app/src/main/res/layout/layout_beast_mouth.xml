@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="50dp"
+    android:layout_marginLeft="40dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:id="@+id/part_pig_mouth"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/part_pig_mouth" />
+    <ImageView
+        android:id="@+id/part_octopus_mouth"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_octopus_mouth" />
+    <ImageView
+        android:id="@+id/part_rabbit_mouth"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_rabbit_mouth" />
+    <ImageView
+        android:id="@+id/part_insect_mouth"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_insect_mouth" />
+    <ImageView
+        android:id="@+id/part_misc_mouth_pig_rabbit_teeth"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_misc_mouth_pig_rabbit_teeth" />
+</FrameLayout>

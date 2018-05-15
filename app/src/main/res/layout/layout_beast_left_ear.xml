@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="115dp"
+    android:layout_height="88dp"
+    android:layout_alignTop="@+id/head"
+    android:layout_alignLeft="@id/head"
+    android:layout_marginTop="0dp"
+    android:layout_marginLeft="63dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ears -->
+    <ImageView
+        android:id="@+id/part_pig_left_ear"
+        android:layout_width="115dp"
+        android:layout_height="88dp"
+        android:src="@drawable/part_pig_left_ear" />
+    <ImageView
+        android:id="@+id/part_octopus_left_ear"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"
+        android:src="@drawable/part_octopus_left_ear" />
+</FrameLayout>
